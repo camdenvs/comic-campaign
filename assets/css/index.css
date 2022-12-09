@@ -1,0 +1,23 @@
+nav {
+    font-size: 32px;
+}
+
+#all-caps-logo {
+    margin-right: 64px;
+}
+
+.bg-image-1 {
+    background-image: url('../images/bckgrnd-banner1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+}
+
+.bg-image-2 {
+    background-image: url('../images/bckgrnd-banner2.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+}
+
+.info {
+    width: 25%;
+}
