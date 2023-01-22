@@ -7,15 +7,18 @@ nav {
 }
 
 .bg-image-1 {
-    background-image: url('../images/bckgrnd-banner1.jpg');
+    background-image: url('../images/bckgrnd-banner1-1.jpg');
     background-repeat: no-repeat;
-    background-size: 100%, 100%;
+    background-size: cover;
+
+    padding-top: 200px;
+    padding-bottom: 200px;
 }
 
 .bg-image-2 {
     background-image: url('../images/bckgrnd-banner2.jpg');
     background-repeat: no-repeat;
-    background-size: 100%, 100%;
+    background-size: cover;
 }
 
 .info {
