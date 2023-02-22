@@ -9,7 +9,13 @@ const newsSchema = new Schema(
         body: {
             type: String,
             required: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp),
         }
+
     }
 )
 
