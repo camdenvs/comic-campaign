@@ -4,10 +4,10 @@ const { gql } = require('apollo-server-express')
 const typeDefs = gql`
     input CampaignInput {
         title: String!
-        goalAmount: Number!
+        goalAmount: Int!
         goalDate: String!
-        earned: Number!
-        investorCount: Number!
+        earned: Int!
+        investorCount: Int!
         description: String!
         isActive: Boolean!
     }
@@ -28,10 +28,10 @@ const typeDefs = gql`
     type Campaign {
         _id: ID,
         title: String,
-        goalAmount: Number
+        goalAmount: Int
         goalDate: String
-        earned: Number
-        investorCount: Number
+        earned: Int
+        investorCount: Int
         description: String
         isActive: Boolean
     }
@@ -44,7 +44,8 @@ const typeDefs = gql`
 
     type Product {
         _id: ID
-        price: Number
+        name: String
+        price: Int
         description: String
     }
 
@@ -62,10 +63,9 @@ const typeDefs = gql`
     type Mutation {
         createCampaign(input: CampaignInput): Campaign
         updateCampaign(campaignId: ID!, input: CampaignInput): Campaign
-        createProduct(price: Number!, description: String!): Product
+        createProduct(name: String! price: Int!, description: String!): Product
         removeProduct(productId: ID!): Product
         createUser(username: String!, email: String!, password: String!): Auth
-        updateUser(userId: ID!, username: String!, email: String!, password: String!, isAdmin: Boolean): User
         login(email: String!, password: String!): Auth
         createNews(title: String!, body: String!): News
         removeNews(newsId: ID!): News

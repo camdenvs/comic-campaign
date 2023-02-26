@@ -31,18 +31,18 @@ const resolvers = {
     },
 
     Mutation: {
-        createCampaign: async (parent, { campaign }) => {
-            return await Campaign.create({campaign})
+        createCampaign: async (parent, campaign) => {
+            return await Campaign.create(campaign.input)
         },
-        updateCampaign: async (parent, { campaignId, campaign }) => {
+        updateCampaign: async (parent, args) => {
             return await Campaign.findOneAndUpdate(
-                { _id: campaignId },
-                { campaign },
+                { _id: args.campaignId },
+                { $set: args.input },
                 { new: true }
             )
         },
-        createProduct: async (parent, { price, description }) => {
-            return await Product.create({ price, description })
+        createProduct: async (parent, { name, price, description }) => {
+            return await Product.create({ name, price, description })
         },
         removeProduct: async (parent, { productId }) => {
             return await Product.findOneAndDelete({ _id: productId })
@@ -52,19 +52,13 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        updateUser: async (parent, { userId, username, email, password, isAdmin }) => {
-            const user = await User.findOneAndUpdate(
-                { _id: userId },
-                { username, email, password, isAdmin }
-            )
-            return user
-        },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
       
             if (!user) {
               throw new AuthenticationError('No user found with this email address');
             }
+            console.log(user)
       
             const correctPw = await user.isCorrectPassword(password);
       
