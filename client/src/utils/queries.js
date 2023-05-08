@@ -1,60 +1,76 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+export const QUERY_CAMPAIGNS = gql`
+  query getCampaigns {
+    campaigns {
       _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
-      }
-    }
-  }
-`;
-
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
+      title
+      goalAmount
+      goalDate
+      earned
+      investorCount
+      description
+      isActive
       createdAt
     }
   }
 `;
 
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
+export const QUERY_SINGLE_CAMPAIGN = gql`
+  query getSingleCampaign($campaignId: ID!) {
+    campaign(campaignId: $campaignId) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
+      title
+      goalAmount
+      goalDate
+      earned
+      investorCount
+      description
+      isActive
     }
   }
 `;
 
-export const QUERY_ME = gql`
-  query me {
-    me {
+export const QUERY_PRODUCTS = gql`
+  query getProducts {
+    products {
       _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        thoughtAuthor
-        createdAt
-      }
+      name
+      price
+      description
+    }
+  }
+`;
+
+export const QUERY_SINGLE_PRODUCT = gql`
+  query getSingleProduct($productId: ID!) {
+    product(productId: $productId) {
+      _id
+      name
+      price
+      description
+    }
+  }
+`;
+
+export const QUERY_NEWS = gql`
+  query getNews {
+    allNews {
+      _id
+      title
+      body
+      createdAt
+    }
+  }
+`;
+
+export const QUERY_SINGLE_NEWS = gql`
+  query getNews($newsId: ID!) {
+    news(newsId: $newsId) {
+      _id
+      title
+      body
+      createdAt
     }
   }
 `;
