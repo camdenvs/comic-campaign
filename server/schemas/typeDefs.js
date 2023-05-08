@@ -26,20 +26,22 @@ const typeDefs = gql`
     }
 
     type Campaign {
-        _id: ID,
-        title: String,
+        _id: ID
+        title: String
         goalAmount: Int
         goalDate: String
         earned: Int
         investorCount: Int
         description: String
         isActive: Boolean
+        createdAt: String
     }
 
     type News {
         _id: ID
         title: String
         body: String
+        createdAt: String
     }
 
     type Product {
