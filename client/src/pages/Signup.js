@@ -10,12 +10,12 @@ const Signup = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        const mutationResponse = await createUser({
+        const { data } = await createUser({
             variables: {
                 ...formState
             },
         });
-        const token = mutationResponse.data.addUser.token;
+        const token = data.addUser.token;
         Auth.login(token);
     };
 

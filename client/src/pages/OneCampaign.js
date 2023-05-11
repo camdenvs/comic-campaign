@@ -15,7 +15,7 @@ const OneCampaign = () => {
 
     return (
         <div>
-            {loading ? (
+            {loading || error ? (
                 <div>Loading...</div>
             ) : (
                 <div>
@@ -24,6 +24,11 @@ const OneCampaign = () => {
                     <div>{campaign.earned}/{campaign.goalAmount}</div>
                     <div>{campaign.investorCount}</div>
                     <div>{campaign.description}</div>
+                    {campaign.isActive ? (
+                        <button>Contribute</button>
+                    ) : (
+                        <div>This campaign is no longer active</div>
+                    )}
                 </div>
             )}
         </div>

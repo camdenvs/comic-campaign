@@ -1,9 +1,9 @@
 import React from "react"
 import { useQuery } from "@apollo/client"
 
-import CampaignCard from "../components/CampaignCard.js"
+import CampaignCard from "../components/CampaignCard"
 
-import { QUERY_CAMPAIGNS } from "../utils/queries.js"
+import { QUERY_CAMPAIGNS } from "../utils/queries"
 
 const Campaign = () => {
     const { loading, data } = useQuery(QUERY_CAMPAIGNS)
