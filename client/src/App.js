@@ -20,6 +20,7 @@ import Login from './pages/Login'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import OneNews from './pages/OneNews';
+import { Box, Flex } from '@chakra-ui/react';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -49,8 +50,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Header />
-        <div>
+        <Flex flexDirection='column' flexGrow='1' minHeight='100vh' justifyContent={'space-between'}>
+          <Header />
           <Routes>
             <Route
               path='/'
@@ -93,8 +94,8 @@ function App() {
               element={<OneNews />}
             />
           </Routes>
-        </div>
-        <Footer />
+          <Footer />
+        </Flex>
       </Router>
     </ApolloProvider>
   );
