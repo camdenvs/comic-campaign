@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
-import { Flex, Box, Link, UnorderedList, ListItem, Center, Image } from '@chakra-ui/react'
+import { Flex, Link, UnorderedList, ListItem, Center, Image } from '@chakra-ui/react'
 
 import Auth from '../../utils/auth'
 
@@ -12,7 +12,7 @@ const Header = () => {
 
     return (
         <header>
-            <Flex flexDirection='column' justifyContent='space-around'>
+            <Flex flexDirection='column' border='1px' borderColor='gray.200' boxShadow={'md'} pos={'sticky'} top='0' w='100%' pb={'25px'} bgColor={'white'}>
                 {Auth.loggedIn() ? (
                     <>
                         <button onClick={logout}>Logout</button>
