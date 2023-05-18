@@ -1,22 +1,38 @@
+import {
+    Flex,
+    Card,
+    Heading,
+    Link,
+    CardBody,
+    Text,
+    
+    Progress,
+} from '@chakra-ui/react'
 import React from 'react'
 
-import { Link } from "react-router-dom"
+import { Link as RouteLink } from "react-router-dom"
+
 
 const CampaignCard = ({
     campaigns
 }) => {
-    
+
     return (
-        <div>
-            {campaigns && 
+        <Flex flexDir='column'>
+            {campaigns &&
                 campaigns.map((campaign) => (
-                    <Link to={{ pathname: `/campaigns/${campaign._id}` }} key={campaign._id}>
-                        <h3>{campaign.title}</h3>
-                        <div>{campaign.earned} / {campaign.goalAmount}</div>
-                    </Link>
+                <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }}>
+                    <Card border={'1px'} key={campaign._id} m='auto' maxW='850px' boxShadow={'lg'}>
+                        <Heading px='5' pt='5'>{campaign.title}</Heading>
+                        <CardBody>
+                            <Text py={3} px={2} fontSize={24}>{campaign.earned} / {campaign.goalAmount}</Text>
+                            <Progress value={campaign.earned / campaign.goalAmount}/>
+                        </CardBody>
+                    </Card>
+                </Link>
                 ))
             }
-        </div>
+        </Flex>
     )
 }
 
