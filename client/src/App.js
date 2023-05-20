@@ -50,8 +50,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <Flex flexDirection='column' flexGrow='1' minHeight='100vh' justifyContent={'space-between'}>
-          <Header />
+        <Header />
+        <Flex flexDirection='column' flexGrow='1' minHeight='85vh' justifyContent={'space-between'}>
           <Routes>
             <Route
               path='/'

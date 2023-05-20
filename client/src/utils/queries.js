@@ -27,6 +27,7 @@ export const QUERY_SINGLE_CAMPAIGN = gql`
       investorCount
       description
       isActive
+      image
     }
   }
 `;

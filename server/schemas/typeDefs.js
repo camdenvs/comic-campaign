@@ -35,6 +35,7 @@ const typeDefs = gql`
         description: String
         isActive: Boolean
         createdAt: String
+        image: String
     }
 
     type News {
