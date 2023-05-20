@@ -27,10 +27,16 @@ const Campaign = () => {
             {loading ? (
                 <div>Loading...</div>
             ) : (
-                <Box m={5}>
+                <Box
+                    bgImage={"url('/assets/images/bckgrnd-banner2.jpg')"}
+                    bgPosition="top"
+                    bgSize="cover"
+                    bgRepeat="no-repeat"
+                    h='74vh'
+                >
                     {userIsAdmin ? (
                         <>
-                            <Center><Button ref={btnRef} onClick={onOpen} border={'1px'} w='55%' boxShadow={'lg'} mb='3' bgColor={'green.300'} color={'white'} textShadow={'1px 1px black'} _hover={{ bgColor: 'green.400' }}>Add New Campaign</Button></Center>
+                            <Center><Button ref={btnRef} onClick={onOpen} border={'0'} w='55%' boxShadow={'lg'} mt='5' bgColor={'green.300'} color={'white'} textShadow={'1px 1px black'} _hover={{ bgColor: 'green.400' }}>Add New Campaign</Button></Center>
                             <Modal
                                 onClose={onClose}
                                 finalFocusRef={btnRef}

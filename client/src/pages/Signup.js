@@ -3,6 +3,16 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER } from "../utils/mutations"
 import Auth from '../utils/auth';
 import { Link } from 'react-router-dom'
+import {
+    Container,
+    Input,
+    FormControl,
+    FormLabel,
+    FormHelperText,
+    Button,
+    Checkbox,
+    Box
+} from "@chakra-ui/react";
 
 const Signup = () => {
     const [formState, setFormState] = useState({ username: '', email: '', password: '' })
@@ -32,46 +42,55 @@ const Signup = () => {
     };
 
     return (
-        <div className="container my-1">
-            <Link to="/login">← Go to Login</Link>
-
-            <h2>Signup</h2>
-            <form onSubmit={handleFormSubmit}>
-                <div className="flex-row space-between my-2">
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        placeholder="User"
-                        name="username"
-                        type="username"
-                        id="username"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="flex-row space-between my-2">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        placeholder="youremail@test.com"
-                        name="email"
-                        type="email"
-                        id="email"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="flex-row space-between my-2">
-                    <label htmlFor="pwd">Password:</label>
-                    <input
-                        placeholder="******"
-                        name="password"
-                        type="password"
-                        id="pwd"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="flex-row flex-end">
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
+        <Box
+            bgImage={"url('/assets/images/bckgrnd-banner1.jpg')"}
+            bgPosition="center"
+            bgSize="cover"
+            bgRepeat="no-repeat"
+            h='74vh'
+        >
+            <Container
+                mt={'10vh'}
+                maxW='500px'
+                bgColor='white'
+                p={8}
+                boxShadow='lg'
+                borderRadius='md'>
+                <form onSubmit={handleFormSubmit}>
+                    <FormControl isRequired>
+                        <FormLabel>Email address</FormLabel>
+                        <Input
+                            type="email"
+                            name="email"
+                            value={formState.email}
+                            onChange={handleChange}
+                            mb={2}
+                        />
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>Username</FormLabel>
+                        <Input
+                            type="text"
+                            name="username"
+                            value={formState.username}
+                            onChange={handleChange}
+                            mb={2}
+                        />
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>Password</FormLabel>
+                        <Input
+                            type="password"
+                            name="password"
+                            value={formState.password}
+                            onChange={handleChange}
+                            mb={2}
+                        />
+                    </FormControl>
+                    <Button type="submit" w='full' mb={5}>Sign Up</Button>
+                </form>
+            </Container>
+        </Box>
     )
 }
 

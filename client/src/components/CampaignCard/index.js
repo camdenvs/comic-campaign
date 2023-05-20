@@ -21,7 +21,7 @@ const CampaignCard = ({
         <Flex flexDir='column'>
             {campaigns &&
                 campaigns.map((campaign) => (
-                    <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'}>
+                    <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'} mt={5}>
                         <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }}>
                             <Heading px='5' pt='5'>{campaign.title}</Heading>
                             <CardBody>
