@@ -5,7 +5,7 @@ import {
     Link,
     CardBody,
     Text,
-    
+
     Progress,
 } from '@chakra-ui/react'
 import React from 'react'
@@ -21,15 +21,15 @@ const CampaignCard = ({
         <Flex flexDir='column'>
             {campaigns &&
                 campaigns.map((campaign) => (
-                <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }}>
-                    <Card border={'1px'} key={campaign._id} m='auto' maxW='850px' boxShadow={'lg'}>
-                        <Heading px='5' pt='5'>{campaign.title}</Heading>
-                        <CardBody>
-                            <Text py={3} px={2} fontSize={24}>{campaign.earned} / {campaign.goalAmount}</Text>
-                            <Progress value={campaign.earned / campaign.goalAmount}/>
-                        </CardBody>
+                    <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'}>
+                        <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }}>
+                            <Heading px='5' pt='5'>{campaign.title}</Heading>
+                            <CardBody>
+                                <Text py={3} px={2} fontSize={24}>{campaign.earned} / {campaign.goalAmount}</Text>
+                                <Progress value={campaign.earned / campaign.goalAmount} />
+                            </CardBody>
+                        </Link>
                     </Card>
-                </Link>
                 ))
             }
         </Flex>
