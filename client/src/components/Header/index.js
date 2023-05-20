@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
-import { Flex, Link, UnorderedList, ListItem, Center, Image, Button } from '@chakra-ui/react'
+import { Flex, Link, UnorderedList, ListItem, Center, Image } from '@chakra-ui/react'
 
 import Auth from '../../utils/auth'
 

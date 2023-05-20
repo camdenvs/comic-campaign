@@ -20,7 +20,7 @@ import Login from './pages/Login'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import OneNews from './pages/OneNews';
-import { Box, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({

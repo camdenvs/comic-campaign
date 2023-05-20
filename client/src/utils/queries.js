@@ -75,3 +75,14 @@ export const QUERY_SINGLE_NEWS = gql`
     }
   }
 `;
+
+export const QUERY_ME = gql`
+  query Me {
+    me {
+      _id
+      username
+      email
+      isAdmin
+    }
+  }
+`;
