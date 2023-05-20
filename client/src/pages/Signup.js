@@ -10,13 +10,17 @@ const Signup = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        const { data } = await createUser({
-            variables: {
-                ...formState
-            },
-        });
-        const token = data.addUser.token;
-        Auth.login(token);
+        try {
+            const { data } = await createUser({
+                variables: {
+                    ...formState
+                },
+            });
+            Auth.login(data.createUser.token);
+        }
+        catch (e) {
+            console.log(e)
+        }
     };
 
     const handleChange = (event) => {
