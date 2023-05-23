@@ -39,6 +39,8 @@ export const QUERY_PRODUCTS = gql`
       name
       price
       description
+      image
+      category
     }
   }
 `;
@@ -50,6 +52,8 @@ export const QUERY_SINGLE_PRODUCT = gql`
       name
       price
       description
+      image
+      category
     }
   }
 `;
