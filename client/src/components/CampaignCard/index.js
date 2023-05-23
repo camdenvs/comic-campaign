@@ -1,3 +1,4 @@
+import React from 'react'
 import {
     Flex,
     Card,
@@ -5,10 +6,9 @@ import {
     Link,
     CardBody,
     Text,
-
     Progress,
 } from '@chakra-ui/react'
-import React from 'react'
+
 
 import { Link as RouteLink } from "react-router-dom"
 

@@ -35,6 +35,7 @@ export const CREATE_CAMPAIGN = gql`
       investorCount
       description
       isActive
+      image
     }
   }
 `
@@ -50,17 +51,20 @@ export const UPDATE_CAMPAIGN = gql`
       investorCount
       description
       isActive
+      image
     }
   }
 `
 
 export const CREATE_PRODUCT = gql`
-  mutation createProduct($name: String!, $price: Int!, $description: String!) {
-    createProduct(name: $name, price: $price, description: $description) {
+  mutation createProduct($name: String!, $price: Int!, $description: String!, $image: String!, $category: String!) {
+    createProduct(name: $name, price: $price, description: $description, image: $image, category: $category) {
       _id
       name
       price
       description
+      image
+      category
     }
   }
 `
@@ -72,6 +76,8 @@ export const REMOVE_PRODUCT = gql`
       name
       price
       description
+      image
+      category
     }
   }
 `
