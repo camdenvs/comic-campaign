@@ -54,6 +54,7 @@ export const QUERY_SINGLE_PRODUCT = gql`
       description
       image
       category
+      sizes
     }
   }
 `;

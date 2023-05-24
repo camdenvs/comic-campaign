@@ -73,7 +73,7 @@ const OneCampaign = () => {
                                                 <Flex>
                                                 <Container border={'1px'}>
                                                     <Flex justifyContent={'space-between'}>
-                                                    <Text display={"inline"}>$<Input bgColor={'white'} m='1' p={'5px'} border={0} width={'150px'} display={"inline"} placeholder="5"/></Text>
+                                                    <Text display={"inline"}>$<Input type='number' bgColor={'white'} m='1' p={'5px'} border={0} width={'150px'} display={"inline"} placeholder="5"/></Text>
                                                     <Text display={'inline'} m='3' p={'0px'}>USD</Text>
                                                     </Flex>
                                                 </Container>
