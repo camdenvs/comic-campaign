@@ -53,6 +53,7 @@ const typeDefs = gql`
         description: String
         image: String
         category: String
+        sizes: String
     }
 
     type Query {
@@ -61,7 +62,7 @@ const typeDefs = gql`
         user(username: String!): User
         campaigns: [Campaign]
         campaign(campaignId: ID!): Campaign
-        products: [Product]
+        products(category: String): [Product]
         product(productId: ID!): Product
         allNews: [News]
         news(newsId: ID!): News

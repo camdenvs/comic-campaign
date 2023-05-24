@@ -16,7 +16,7 @@ const Store = () => {
             <Flex flexDir={'row'} flexWrap={'wrap'} justifyContent={"space-around"} mt='5' mx='auto' w={{ "sm": "95%", "md": "760px", "xl": '1200px'}}>
                 {products &&
                     products.map((product) => (
-                        <ProductCard product={product}/>
+                        <ProductCard key={product._id} product={product}/>
                     ))    
                 }
             </Flex>

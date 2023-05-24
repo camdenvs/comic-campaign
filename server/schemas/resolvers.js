@@ -16,8 +16,9 @@ const resolvers = {
         campaign: async (parent, { campaignId }) => {
             return Campaign.findOne({ _id: campaignId })
         },
-        products: async () => {
-            return Product.find()
+        products: async (parent, { category }) => {
+            const params = category ? { category } : {}
+            return Product.find(params)
         },
         product: async (parent, { productId }) => {
             return Product.findOne({ _id: productId })

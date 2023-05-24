@@ -22,6 +22,11 @@ const productSchema = new Schema(
             type: String,
             required: true,
             default: 'Miscellaneous'
+        },
+        sizes: {
+            type: String,
+            required: true,
+            default: ''
         }
     }
 )
