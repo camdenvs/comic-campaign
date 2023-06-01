@@ -33,8 +33,8 @@ export const QUERY_SINGLE_CAMPAIGN = gql`
 `;
 
 export const QUERY_PRODUCTS = gql`
-  query getProducts {
-    products {
+  query getProducts($category: String) {
+    products(category: $category) {
       _id
       name
       price
