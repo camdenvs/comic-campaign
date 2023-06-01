@@ -82,7 +82,11 @@ function App() {
               element={<Store />}
             />
             <Route
-              path='/store/:productId'
+              path='/store/:category'
+              element={<Store />}
+            />
+            <Route
+              path='/product/:productId'
               element={<Product />}
             />
             <Route

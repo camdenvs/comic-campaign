@@ -4,7 +4,6 @@ import {
     Link,
     CardBody,
     Text,
-    Flex,
     CardHeader,
     Image,
     Center
@@ -16,7 +15,7 @@ const ProductCard = ({ product }) => {
 
     return (
         <Card border={'1px'} borderColor={'blackAlpha.300'} w={{ "sm": "100%", "md": "360px"}} mb='5' _hover={{ boxShadow: '2xl', width: '385px'}}>
-            <Link href={`/store/${product._id}`} _hover={'none'}>
+            <Link href={`/product/${product._id}`} _hover={'none'}>
                 <Center><CardHeader fontSize={'32px'} pb='0'>{product.name}</CardHeader></Center>
                 <CardBody>
                     <Image src={product.image} w='300px' h='300px' mx='auto'></Image>
