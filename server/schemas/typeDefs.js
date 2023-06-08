@@ -71,7 +71,7 @@ const typeDefs = gql`
     type Mutation {
         createCampaign(input: CampaignInput): Campaign
         updateCampaign(campaignId: ID!, input: CampaignInput): Campaign
-        createProduct(name: String! price: Int!, description: String!, image: String!, category: String!): Product
+        createProduct(name: String! price: Int!, description: String!, image: String!, category: String!, sizes: String): Product
         removeProduct(productId: ID!): Product
         createUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth

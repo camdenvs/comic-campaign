@@ -25,7 +25,6 @@ const productSchema = new Schema(
         },
         sizes: {
             type: String,
-            required: true,
             default: ''
         }
     }

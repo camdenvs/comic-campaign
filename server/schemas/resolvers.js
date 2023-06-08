@@ -48,8 +48,8 @@ const resolvers = {
                 { new: true }
             )
         },
-        createProduct: async (parent, { name, price, description, image, category }) => {
-            return await Product.create({ name, price, description, image, category })
+        createProduct: async (parent, { name, price, description, image, category, sizes }) => {
+            return await Product.create({ name, price, description, image, category, sizes })
         },
         removeProduct: async (parent, { productId }) => {
             return await Product.findOneAndDelete({ _id: productId })

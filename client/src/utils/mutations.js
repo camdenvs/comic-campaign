@@ -57,14 +57,15 @@ export const UPDATE_CAMPAIGN = gql`
 `
 
 export const CREATE_PRODUCT = gql`
-  mutation createProduct($name: String!, $price: Int!, $description: String!, $image: String!, $category: String!) {
-    createProduct(name: $name, price: $price, description: $description, image: $image, category: $category) {
+  mutation createProduct($name: String!, $price: Int!, $description: String!, $image: String!, $category: String!, $sizes: String) {
+    createProduct(name: $name, price: $price, description: $description, image: $image, category: $category, sizes: $sizes) {
       _id
       name
       price
       description
       image
       category
+      sizes
     }
   }
 `
@@ -98,6 +99,16 @@ export const REMOVE_NEWS = gql`
       _id
       title
       body
+    }
+  }
+`
+
+export const UPLOAD_FILE = gql`
+  mutation singleUpload($file: Upload!) {
+    singleUpload(file: $file) {
+      filename
+      mimetype
+      encoding
     }
   }
 `

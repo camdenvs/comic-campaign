@@ -1,13 +1,16 @@
-import React from "react"
-import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
+import React, { useState } from "react"
+import { Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
 
-import { useQuery } from "@apollo/client"
+import { useQuery, useMutation } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import { QUERY_ME, QUERY_PRODUCTS } from "../utils/queries"
+import { CREATE_PRODUCT, UPLOAD_FILE } from "../utils/mutations"
 
 import ProductCard from "../components/ProductCard"
 
 const Store = () => {
+    const [ formState, setFormState ] = useState({ image: '', name: '', description: '', price: '', sizes: '', category: 'apparel' })
+    const [ fileState, setFileState ] = useState()
     const { category } = useParams() || {}
 
     const userData = useQuery(QUERY_ME)
@@ -21,8 +24,62 @@ const Store = () => {
     const btnRef = React.useRef(null)
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const handleFormSubmit = () => {
+    const [createProduct] = useMutation(CREATE_PRODUCT)
+    // const [uploadFile] = useMutation(UPLOAD_FILE)
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
+
+    const handlePriceChange = (value) => {
+        setFormState({
+            ...formState,
+            price: value,
+        });
+    }
+
+    const handleFileChange = async (event) => {
+        const { name, value } = event.target
+        const file = event.target.files[0]
+        setFormState({
+            ...formState,
+            [name]: value
+        });
+        setFileState(
+            file
+        )
+        // const { data } = await uploadFile({
+        //     variables: {
+        //         file
+        //     }
+        // })
+        // console.log(data)
+    }
+
+    const handleFormSubmit = async () => {
+        console.log(formState)
+        console.log(fileState)
+        try {
+            // var { data } = await uploadFile({
+            //     variables: {
+            //         filename: fileState.name
+            //     }
+            // })
+            // console.log(data)
+
+            createProduct({
+                variables: {
+                    ...formState
+                }
+            })
+            
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -45,23 +102,33 @@ const Store = () => {
                             <form>
                                 <FormControl mb={2}>
                                     <FormLabel>Product Image</FormLabel>
-                                    <input type='file' id='image' />
+                                    <input type='file' name='image' value={formState.image} onChange={handleFileChange} id="image" />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Product Name</FormLabel>
-                                    <Input id='name' />
+                                    <Input name='name' value={formState.name} onChange={handleChange} />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Description</FormLabel>
-                                    <Input id='description' />
+                                    <Input name='description' value={formState.description} onChange={handleChange} />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Price</FormLabel>
-                                    <Input id='price' />
+                                    <Input type='number' name='price' value={formState.price} onChange={(e) => handlePriceChange(Number(e.target.value))} />
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>Category</FormLabel>
+                                    <Select name='category' value={formState.category} onChange={handleChange}>
+                                        <option value='apparel'>Apparel</option>
+                                        <option value='action-figures'>Action Figures</option>
+                                        <option value='trading-cards'>Trading Cards</option>
+                                        <option value='art'>Art</option>
+                                        <option value='other'>Other</option>
+                                    </Select>
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Multiple Sizes? If no, leave blank.</FormLabel>
-                                    <Input id='sizes' />
+                                    <Input name='sizes' value={formState.sizes} onChange={handleChange} />
                                 </FormControl>
                             </form>
                         </ModalBody>
