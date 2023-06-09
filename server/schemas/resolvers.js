@@ -38,8 +38,8 @@ const resolvers = {
     },
 
     Mutation: {
-        createCampaign: async (parent, campaign) => {
-            return await Campaign.create(campaign.input)
+        createCampaign: async (parent, { title, goalAmount, goalDate, description, image }) => {
+            return await Campaign.create({ title, goalAmount, goalDate, description, image })
         },
         updateCampaign: async (parent, args) => {
             return await Campaign.findOneAndUpdate(

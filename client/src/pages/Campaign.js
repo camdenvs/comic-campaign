@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 
 import CampaignCard from "../components/CampaignCard"
@@ -12,14 +12,40 @@ const Campaign = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef(null)
 
+    const [formState, setFormState] = useState({ title: '', goalAmount: '', goalDate: '', description: '', image: ''})
     const { loading, data } = useQuery(QUERY_CAMPAIGNS)
     const campaigns = data?.campaigns || []
 
+    const [createCampaign] = useMutation(CREATE_CAMPAIGN)
     const userData = useQuery(QUERY_ME)
     const userIsAdmin = userData.data?.me.isAdmin
 
     const handleFormSubmit = () => {
+        console.log(formState)
+        try {
+        createCampaign({
+            variables: {
+                ...formState
+            }
+        })
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
+
+    const handleNumberChange = (value) => {
+        setFormState({
+            ...formState,
+            goalAmount: value,
+        });
     }
 
     return (
@@ -52,23 +78,23 @@ const Campaign = () => {
                                         <form>
                                             <FormControl mb={2}>
                                                 <FormLabel>Campaign Image</FormLabel>
-                                                <input type='file' id='image' />
+                                                <input type='file' value={formState.image} name='image' onChange={handleChange}/>
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel>Campaign Title</FormLabel>
-                                                <Input id='title' />
+                                                <Input name='title' value={formState.title} onChange={handleChange}/>
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel>Description</FormLabel>
-                                                <Input id='description' />
+                                                <Input name='description' value={formState.description} onChange={handleChange}/>
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel>Goal Amount</FormLabel>
-                                                <Input id='goalAmount' />
+                                                <Input name='goalAmount' type='number' value={formState.goalAmount} onChange={(e) => handleNumberChange(Number(e.target.value))}/>
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel>Goal Date</FormLabel>
-                                                <Input id='goalDate' />
+                                                <Input name='goalDate' value={formState.goalDate} onChange={handleChange}/>
                                             </FormControl>
                                         </form>
                                     </ModalBody>

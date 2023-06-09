@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
-import { Flex, Link, UnorderedList, ListItem, Center, Image, Menu, MenuButton, MenuList, MenuItem, Hide, Show } from '@chakra-ui/react'
+import { Flex, Link, UnorderedList, ListItem, Image, Menu, MenuButton, MenuList, MenuItem, Hide, Show } from '@chakra-ui/react'
 
 import Auth from '../../utils/auth'
 import { FaHamburger } from 'react-icons/fa'
@@ -66,7 +66,13 @@ const Header = () => {
                     </Show>
                     <Hide above='md'>
                         <Menu>
-                            <MenuButton><FaHamburger fontSize={50} /></MenuButton>
+                            <MenuButton>
+                                <Image
+                                    src='/assets/images/Logo_AllCAPScomics_Circle.webp'
+                                    alt='all caps logo'
+                                    w={75}
+                                />
+                            </MenuButton>
                             <MenuList>
                                 <MenuItem mr={{ md: '5', lg: '10' }}>
                                     <Link as={RouteLink} to='/'>Home</Link>

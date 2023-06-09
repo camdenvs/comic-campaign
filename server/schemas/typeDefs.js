@@ -2,17 +2,6 @@ const { gql } = require('apollo-server-express')
 
 
 const typeDefs = gql`
-    input CampaignInput {
-        title: String!
-        goalAmount: Int!
-        goalDate: String!
-        earned: Int!
-        investorCount: Int!
-        description: String!
-        isActive: Boolean!
-        image: String!
-    }
-
     type Auth {
         token: ID!
         user: User
@@ -67,10 +56,10 @@ const typeDefs = gql`
         allNews: [News]
         news(newsId: ID!): News
     }
-
+    
     type Mutation {
-        createCampaign(input: CampaignInput): Campaign
-        updateCampaign(campaignId: ID!, input: CampaignInput): Campaign
+        createCampaign(title: String!, goalAmount: Int!, goalDate: String!, description: String!, image: String!): Campaign
+        updateCampaign(campaignId: ID!, title: String!, goalAmount: Int!, goalDate: String!, escription: String!, image: String!): Campaign
         createProduct(name: String! price: Int!, description: String!, image: String!, category: String!, sizes: String): Product
         removeProduct(productId: ID!): Product
         createUser(username: String!, email: String!, password: String!): Auth
