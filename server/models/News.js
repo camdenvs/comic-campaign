@@ -1,25 +1,60 @@
-const { Schema, model } = require('mongoose')
-const dateFormat = require('../utils/dateFormat')
+// const { Schema, model } = require('mongoose')
+// const dateFormat = require('../utils/dateFormat')
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-const newsSchema = new Schema(
+// const newsSchema = new Schema(
+//     {
+//         title: {
+//             type: String,
+//             required: true
+//         },
+//         body: {
+//             type: String,
+//             required: true
+//         },
+//         createdAt: {
+//             type: Date,
+//             default: Date.now,
+//             get: (timestamp) => dateFormat(timestamp),
+//         }
+
+//     }
+// )
+
+// const News = model('News', newsSchema)
+
+class News extends Model {}
+
+News.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true,
+        },
         title: {
-            type: String,
-            required: true
+            type: DataTypes.STRING,
+            allowNull: false
         },
         body: {
-            type: String,
-            required: true
+            type: DataTypes.STRING,
+            allowNull: false
         },
         createdAt: {
-            type: Date,
-            default: Date.now,
-            get: (timestamp) => dateFormat(timestamp),
+            type: DataTypes.DATE,
+            allowNull: false,
+            defaultValue: DataTypes.NOW
         }
-
+    },
+    {
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'news',
     }
 )
-
-const News = model('News', newsSchema)
 
 module.exports = News
