@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS cyberfrog_db;
+CREATE DATABASE cyberfrog_db;
