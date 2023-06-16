@@ -1,62 +1,62 @@
-// const { Schema, model } = require('mongoose')
-// const dateFormat = require('../utils/dateFormat')
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Schema, model } = require('mongoose')
+const dateFormat = require('../utils/dateFormat')
+// const { Model, DataTypes } = require('sequelize');
+// const sequelize = require('../config/connection');
 
-// * The following commented code blocks are for the former MongoDB model
-
-// const newsSchema = new Schema(
-//     {
-//         title: {
-//             type: String,
-//             required: true
-//         },
-//         body: {
-//             type: String,
-//             required: true
-//         },
-//         createdAt: {
-//             type: Date,
-//             default: Date.now,
-//             get: (timestamp) => dateFormat(timestamp),
-//         }
-
-//     }
-// )
-
-// const News = model('News', newsSchema)
-
-class News extends Model {}
-
-News.init(
+const newsSchema = new Schema(
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         title: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: String,
+            required: true
         },
         body: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: String,
+            required: true
         },
         createdAt: {
-            type: DataTypes.DATE,
-            allowNull: false,
-            defaultValue: DataTypes.NOW
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp),
         }
-    },
-    {
-        sequelize,
-        timestamps: false,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'news',
+
     }
 )
+
+const News = model('News', newsSchema)
+
+// * The following commented code blocks are for the former MySQL model
+
+// class News extends Model {}
+
+// News.init(
+//     {
+//         id: {
+//             type: DataTypes.INTEGER,
+//             allowNull: false,
+//             primaryKey: true,
+//             autoIncrement: true,
+//         },
+//         title: {
+//             type: DataTypes.STRING,
+//             allowNull: false
+//         },
+//         body: {
+//             type: DataTypes.STRING,
+//             allowNull: false
+//         },
+//         createdAt: {
+//             type: DataTypes.DATE,
+//             allowNull: false,
+//             defaultValue: DataTypes.NOW
+//         }
+//     },
+//     {
+//         sequelize,
+//         timestamps: false,
+//         freezeTableName: true,
+//         underscored: true,
+//         modelName: 'news',
+//     }
+// )
 
 module.exports = News
