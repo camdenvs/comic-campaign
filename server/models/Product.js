@@ -1,85 +1,85 @@
-// const { Schema, model } = require('mongoose')
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
+const { Schema, model } = require('mongoose')
+// const { Model, DataTypes } = require('sequelize');
+// const sequelize = require('../config/connection');
 
-// * The following commented code blocks are for the former MongoDB model
-
-// const productSchema = new Schema(
-//     {
-//         name: {
-//             type: String,
-//             required: true
-//         },
-//         price: {
-//             type: Number,
-//             required: true
-//         },
-//         description: {
-//             type: String,
-//             required: true
-//         },
-//         image: {
-//             type: String,
-//             required: true
-//         },
-//         category: {
-//             type: String,
-//             required: true,
-//             default: 'other'
-//         },
-//         sizes: {
-//             type: String,
-//             default: ''
-//         }
-//     }
-// )
-
-// const Product = model('Product', productSchema)
-
-class Product extends Model {}
-
-Product.init(
+const productSchema = new Schema(
     {
-        id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-            autoIncrement: true,
-        },
         name: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: String,
+            required: true
         },
         price: {
-            type: DataTypes.FLOAT,
-            allowNull: false
+            type: Number,
+            required: true
         },
         description: {
-            type: DataTypes.STRING,
-            allowNull: false
+            type: String,
+            required: true
         },
         image: {
-            type: DataTypes.BLOB,
-            allowNull: false
+            type: String,
+            required: true
         },
         category: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'other'
+            type: String,
+            required: true,
+            default: 'other'
         },
         sizes: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: ''
+            type: String,
+            default: ''
         }
-    },
-    {
-        sequelize,
-        timestamps: false,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'product',
     }
 )
+
+const Product = model('Product', productSchema)
+
+// * The following commented code blocks are for the former MySQL model
+
+// class Product extends Model {}
+
+// Product.init(
+//     {
+//         id: {
+//             type: DataTypes.INTEGER,
+//             allowNull: false,
+//             primaryKey: true,
+//             autoIncrement: true,
+//         },
+//         name: {
+//             type: DataTypes.STRING,
+//             allowNull: false
+//         },
+//         price: {
+//             type: DataTypes.FLOAT,
+//             allowNull: false
+//         },
+//         description: {
+//             type: DataTypes.STRING,
+//             allowNull: false
+//         },
+//         image: {
+//             type: DataTypes.BLOB,
+//             allowNull: false
+//         },
+//         category: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//             defaultValue: 'other'
+//         },
+//         sizes: {
+//             type: DataTypes.STRING,
+//             allowNull: false,
+//             defaultValue: ''
+//         }
+//     },
+//     {
+//         sequelize,
+//         timestamps: false,
+//         freezeTableName: true,
+//         underscored: true,
+//         modelName: 'product',
+//     }
+// )
 
 module.exports = Product
