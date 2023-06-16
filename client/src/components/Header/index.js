@@ -3,7 +3,6 @@ import { Link as RouteLink } from 'react-router-dom'
 import { Flex, Link, UnorderedList, ListItem, Image, Menu, MenuButton, MenuList, MenuItem, Hide, Show } from '@chakra-ui/react'
 
 import Auth from '../../utils/auth'
-import { FaHamburger } from 'react-icons/fa'
 
 const Header = () => {
     const logout = (event) => {
@@ -74,21 +73,11 @@ const Header = () => {
                                 />
                             </MenuButton>
                             <MenuList>
-                                <MenuItem mr={{ md: '5', lg: '10' }}>
-                                    <Link as={RouteLink} to='/'>Home</Link>
-                                </MenuItem>
-                                <MenuItem mr={{ md: '5', lg: '10' }}>
-                                    <Link as={RouteLink} to='/about'>About</Link>
-                                </MenuItem>
-                                <MenuItem mr={{ md: '5', lg: '10' }}>
-                                    <Link as={RouteLink} to='/store'>Store</Link>
-                                </MenuItem>
-                                <MenuItem mr={{ md: '5', lg: '10' }}>
-                                    <Link as={RouteLink} to='/campaigns'>Campaign</Link>
-                                </MenuItem>
-                                <MenuItem mr={{ md: '5', lg: '10' }}>
-                                    <Link as={RouteLink} to='/news'>News</Link>
-                                </MenuItem>
+                                <MenuItem as={RouteLink} to='/' mr={{ md: '5', lg: '10' }}>Home</MenuItem>
+                                <MenuItem as={RouteLink} to='/about' mr={{ md: '5', lg: '10' }}>About</MenuItem>
+                                <MenuItem as={RouteLink} to='/store' mr={{ md: '5', lg: '10' }}>Store</MenuItem>
+                                <MenuItem as={RouteLink} to='/campaigns' mr={{ md: '5', lg: '10' }}>Campaigns</MenuItem>
+                                <MenuItem as={RouteLink} to='/news' mr={{ md: '5', lg: '10' }}>News</MenuItem>
                                 {Auth.loggedIn() ? (
                                     <>
                                         <MenuItem>
