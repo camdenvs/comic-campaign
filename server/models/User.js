@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
+// * The following commented code blocks are for the former MongoDB model
+
 // const userSchema = new Schema(
 //     {
 //         username: {
