@@ -1,5 +1,4 @@
 const { Schema, model } = require('mongoose')
-const dateFormat = require('../utils/dateFormat')
 // const { Model, DataTypes } = require('sequelize');
 // const sequelize = require('../config/connection');
 
@@ -16,7 +15,6 @@ const newsSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: (timestamp) => dateFormat(timestamp),
         }
 
     }
