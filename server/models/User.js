@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt');
+const cartSchema = require('./Cart')
 // const { Model, DataTypes } = require('sequelize');
 // const sequelize = require('../config/connection');
 
@@ -28,7 +29,8 @@ const userSchema = new Schema(
             type: Boolean,
             required: true,
             default: false
-        }
+        },
+        cart: cartSchema
     }
 )
 

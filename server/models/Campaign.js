@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose')
 // const { Model, DataTypes } = require('sequelize');
 // const sequelize = require('../config/connection');
-const dateFormat = require('../utils/dateFormat')
 
 const campaignSchema = new Schema({
     title: {
@@ -42,7 +41,6 @@ const campaignSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
     }
 })
 
