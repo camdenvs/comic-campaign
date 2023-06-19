@@ -91,3 +91,36 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_CART = gql`
+  query cart {
+    cart {
+      _id
+      items {
+        productId
+        name
+        size
+        quantity
+        price
+      }
+      total
+    }
+  }
+`
+
+export const QUERY_ORDERS = gql`
+  query orders($userId: ID) {
+    orders(userId: $userId) {
+      userId
+      items {
+        productId
+        name
+        size
+        quantity
+        price
+      }
+      total
+      date_added
+    }
+  }
+`
