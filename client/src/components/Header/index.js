@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link as RouteLink } from 'react-router-dom'
-import { Flex, Link, UnorderedList, ListItem, Image, Menu, MenuButton, MenuList, MenuItem, Hide, Show } from '@chakra-ui/react'
+import { Flex, Link, UnorderedList, ListItem, Image, Menu, MenuButton, MenuList, MenuItem, Hide, Show, Box } from '@chakra-ui/react'
 
 import Auth from '../../utils/auth'
+import ShoppingCart from './ShoppingCart'
+
+import { useQuery } from '@apollo/client'
+import { QUERY_ME } from '../../utils/queries'
 
 const Header = () => {
     const logout = (event) => {
@@ -10,14 +14,23 @@ const Header = () => {
         Auth.logout()
     }
 
+    const { data } = useQuery(QUERY_ME)
+    const cart = data?.me.cart || {}
+
     return (
         <header>
             <Flex flexDirection='row' border='1px' borderColor='gray.200' boxShadow={'md'} bgColor={'white'} h={'15vh'} justifyContent={'space-around'}>
-
+                <Box pos='absolute' top='15px' right={{ 'sm': '50px', 'md': '-5px', 'lg': '25px', 'xl': '100px' }} color={'#212C42'}>
+                {Auth.loggedIn() ? (
+                    <ShoppingCart cart={cart} />
+                ) : (
+                    <ShoppingCart />
+                )}
+                </Box>
 
                 <Flex my='auto'>
                     <Show above='md'>
-                        <Link as={RouteLink} to='/' mt='-3' mr={{ md: '25px', lg: '100', xl: '200' }}>
+                        <Link as={RouteLink} to='/' mt='-3' mr={{ md: '10px', lg: '50px', xl: '200' }}>
                             <Image
                                 src='/assets/images/Logo_AllCAPScomics_Circle.webp'
                                 alt='all caps logo'

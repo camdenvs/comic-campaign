@@ -35,12 +35,6 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
-        cart: async (parent, args, context) => {
-            if (context.user) {
-                return User.findOne({ _id: context.user._id }).cart
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
         orders: async (parent, args) => {
             if (args.userId) {
                 return Order.find({ userId: args.userId })
@@ -70,7 +64,7 @@ const resolvers = {
             return await Product.findOneAndDelete({ _id: productId })
         },
         createUser: async (parent, { username, email, password }) => {
-            const user = await User.create({ username, email, password });
+            const user = await User.create({ username, email, password, cart: null });
             const token = signToken(user);
             return { token, user };
         },
@@ -134,8 +128,8 @@ const resolvers = {
         clearCart: async (parent, args, context) => {
             return await User.findOneAndUpdate(
                 { _id: context.user._id},
-                { $unset: 
-                    { cart: '' }
+                { $set: 
+                    { cart: null }
                 }
             )   
         }
