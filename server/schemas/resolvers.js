@@ -1,45 +1,50 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Campaign, News, Product, Order } = require('../models');
+const { User, Campaign, News, Product, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
         users: async () => {
-            return User.find()
+            return await User.find()
         },
         user: async (parent, { username }) => {
-            return User.findOne({ username })
+            return await User.findOne({ username })
         },
         campaigns: async () => {
-            return Campaign.find().sort({ createdAt: -1 })
+            return await Campaign.find().sort({ createdAt: -1 })
         },
         campaign: async (parent, { campaignId }) => {
-            return Campaign.findOne({ _id: campaignId })
+            return await Campaign.findOne({ _id: campaignId })
         },
         products: async (parent, { category }) => {
             const params = category ? { category } : {}
-            return Product.find(params)
+            return await Product.find(params)
         },
         product: async (parent, { productId }) => {
-            return Product.findOne({ _id: productId })
+            return await Product.findOne({ _id: productId })
         },
         allNews: async () => {
-            return News.find().sort({ createdAt: -1 })
+            return await News.find().sort({ createdAt: -1 })
         },
         news: async (parent, { newsId }) => {
-            return News.findOne({ _id: newsId })
+            return await News.findOne({ _id: newsId })
         },
         me: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id });
+                return await User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError('You need to be logged in!');
         },
         orders: async (parent, args) => {
             if (args.userId) {
-                return Order.find({ userId: args.userId })
+                return await Order.find({ userId: args.userId })
             } else {
-                return Order.find().sort({ dateAdded: 1 })
+                return await Order.find().sort({ dateAdded: 1 })
+            }
+        },
+        cart: async (parent, args, context) => {
+            if (context.user) {
+                return await Cart.findOne({ userId: context.user._id })
             }
         }
         // checkout: async (parent, args, context) => {
@@ -91,47 +96,53 @@ const resolvers = {
         removeNews: async (parent, { newsId }) => {
             return await News.findOneAndDelete({ _id: newsId })
         },
-        addToCart: async (parent, { productId, size, quantity }, context) => {
-            const user = await User.findOne({ _id: context.user._id })
-            const item = Product.findOne({ _id: productId })
-            return await user.cart.update(
-                {
-                    $addToSet: {
-                        items: {
-                            productId: productId,
-                            name: item.name,
-                            size: size,
-                            quantity: quantity,
-                            price: item.price
-                        },
-                        total: (user.cart.total + item.price)
+        addToCart: async (parent, { userId, productId, size, quantity }) => {
+            const cart = await Cart.findOne({ userId: userId })
+            const item = await Product.findOne({ _id: productId })
+            if (cart) {
+                return await cart.update(
+                    {
+                        $addToSet: {
+                            items: {
+                                productId: productId,
+                                name: item.name,
+                                size: size,
+                                quantity: quantity,
+                                price: item.price
+                            },
+                            total: cart.total + (quantity*item.price)
+                        }
                     }
-                }
-            )
+                )
+            }
+            else{
+                return await Cart.create({
+                    userId: userId,
+                    items: [{ productId, name: item.name, quantity, price: item.price, size }],
+                    total: quantity*item.price
+                })
+            }
         },
         removeFromCart: async (parent, { productId }, context) => {
-            const user = await User.findOne({ _id: context.user._id})
+            const cart = await Cart.findOne({ userId: context.user._id })
             const item = Product.findOne({ _id: productId })
-            return await user.update(
-                { $pull: {
-                    cart: {
+            return await cart.update(
+                {
+                    $pull: {
                         items: { productId: productId }
                     }
-                }},
-                { $set: { 
-                    cart: { 
-                        total: (user.cart.total - item.price) 
+                },
+                {
+                    $set: {
+                        total: (cart.total - item.price)
                     }
-                }}
+                }
             )
         },
         clearCart: async (parent, args, context) => {
-            return await User.findOneAndUpdate(
-                { _id: context.user._id},
-                { $set: 
-                    { cart: null }
-                }
-            )   
+            return await Cart.findOneAndDelete(
+                { userId: context.user._id }
+            )
         }
     }
 }

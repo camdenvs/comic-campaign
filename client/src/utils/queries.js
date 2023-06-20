@@ -82,23 +82,12 @@ export const QUERY_SINGLE_NEWS = gql`
 `;
 
 export const QUERY_ME = gql`
-  query Me {
+  query me {
     me {
       _id
       username
       email
       isAdmin
-      cart {
-        _id
-        items {
-          productId
-          name
-          size
-          quantity
-          price
-        }
-        total
-      }
     }
   }
 `;
@@ -107,6 +96,7 @@ export const QUERY_ME = gql`
 export const QUERY_ORDERS = gql`
   query orders($userId: ID) {
     orders(userId: $userId) {
+      _id
       userId
       items {
         productId
@@ -117,6 +107,23 @@ export const QUERY_ORDERS = gql`
       }
       total
       date_added
+    }
+  }
+`
+
+export const QUERY_CART = gql`
+  query cart {
+    cart {
+      _id
+      userId
+      items {
+        productId
+        name
+        size
+        quantity
+        price
+      }
+      total
     }
   }
 `
