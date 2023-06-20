@@ -88,25 +88,21 @@ export const QUERY_ME = gql`
       username
       email
       isAdmin
+      cart {
+        _id
+        items {
+          productId
+          name
+          size
+          quantity
+          price
+        }
+        total
+      }
     }
   }
 `;
 
-export const QUERY_CART = gql`
-  query cart {
-    cart {
-      _id
-      items {
-        productId
-        name
-        size
-        quantity
-        price
-      }
-      total
-    }
-  }
-`
 
 export const QUERY_ORDERS = gql`
   query orders($userId: ID) {

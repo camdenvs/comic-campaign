@@ -46,27 +46,24 @@ const typeDefs = gql`
         sizes: String
     }
 
+    type Item {
+        productId: ID
+        name: String
+        quantity: Int
+        price: Int
+    }
+
     type Cart {
         _id: ID
-        items: [{
-            productId: ID
-            name: String
-            quantity: Number
-            price: Number
-        }]
-        total: Number
+        items: [Item]
+        total: Int
     }
 
     type Order {
         _id: ID
         userId: ID
-        items: [{
-            productId: ID
-            name: String
-            quantity: Number
-            price: Number
-        }]
-        total: Number
+        items: [Item]
+        total: Int
         date_added: String
     }
 
@@ -80,8 +77,7 @@ const typeDefs = gql`
         product(productId: ID!): Product
         allNews: [News]
         news(newsId: ID!): News
-        cart(userId: ID!): Cart
-        orders(userId: ID): Orders
+        orders(userId: ID): Order
     }
     
     type Mutation {
