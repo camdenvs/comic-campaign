@@ -7,9 +7,7 @@ import {
     DrawerContent,
     DrawerCloseButton,
     Button,
-    Input,
     useDisclosure,
-    Text
 } from '@chakra-ui/react'
 import React from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
@@ -32,17 +30,20 @@ const ShoppingCart = ({ cart }) => {
                     <DrawerCloseButton />
                     <DrawerHeader>Shopping Cart</DrawerHeader>
                     {cart ? (
-                        <DrawerBody>
-                        </DrawerBody>) : (
+                        <>
+                            <DrawerBody>
+                            </DrawerBody>
+                            <DrawerFooter>
+                                <Button variant='outline' mr={3} onClick={onClose}>
+                                    Close
+                                </Button>
+                                <Button colorScheme='red'>Clear</Button>
+                            </DrawerFooter>
+                        </>) : (
                         <DrawerBody>You have to be signed in to use the shopping cart.</DrawerBody>
                     )}
 
-                    <DrawerFooter>
-                        <Button variant='outline' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button colorScheme='red'>Clear</Button>
-                    </DrawerFooter>
+
                 </DrawerContent>
             </Drawer>
         </>

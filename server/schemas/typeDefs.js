@@ -13,7 +13,6 @@ const typeDefs = gql`
         email: String
         password: String
         isAdmin: Boolean
-        cart: Cart
     }
 
     type Campaign {
@@ -49,12 +48,14 @@ const typeDefs = gql`
     type Item {
         productId: ID
         name: String
+        size: String
         quantity: Int
         price: Int
     }
 
     type Cart {
         _id: ID
+        userId: ID
         items: [Item]
         total: Int
     }
@@ -78,6 +79,7 @@ const typeDefs = gql`
         allNews: [News]
         news(newsId: ID!): News
         orders(userId: ID): Order
+        cart(userId: ID!): Cart
     }
     
     type Mutation {
@@ -89,9 +91,9 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         createNews(title: String!, body: String!): News
         removeNews(newsId: ID!): News
-        addToCart(productId: ID!, size: String, quantity: Int!): User
-        removeFromCart(productId: ID!): User
-        clearCart(productId: ID!): User
+        addToCart(userId: ID!, productId: ID!, size: String!, quantity: Int!): Cart
+        removeFromCart(userId: ID!, productId: ID!): Cart
+        clearCart(userId: ID!, productId: ID!): Cart
     }
 `
 

@@ -114,10 +114,18 @@ export const UPLOAD_FILE = gql`
 `
 
 export const ADD_TO_CART = gql`
-  mutation addToCart($productId: ID!, $size: String, $quantity: Int!) {
-    addToCart(productId: $productId, size: $size, quantity: $quantity) {
+  mutation addToCart($userId: ID!, $productId: ID!, $size: String!, $quantity: Int!) {
+    addToCart(userId: $userId, productId: $productId, size: $size, quantity: $quantity) {
       _id
-      cart
+      userId
+      items {
+        productId
+        name
+        size
+        quantity
+        price
+      }
+      total
     }
   }
 `
@@ -126,7 +134,15 @@ export const REMOVE_FROM_CART = gql`
   mutation removeFromCart($productId: ID!) {
     removeFromCart(productId: $productId) {
       _id
-      cart
+      userId
+      items {
+        productId
+        name
+        size
+        quantity
+        price
+      }
+      total
     }
   }
 `
@@ -135,7 +151,6 @@ export const CLEAR_CART = gql`
   mutation clearCart {
     clearCart {
       _id
-      cart
     }
   }
 `
