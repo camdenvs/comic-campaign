@@ -46,6 +46,7 @@ const typeDefs = gql`
     }
 
     type Item {
+        _id: ID
         productId: ID
         name: String
         size: String
@@ -92,8 +93,8 @@ const typeDefs = gql`
         createNews(title: String!, body: String!): News
         removeNews(newsId: ID!): News
         addToCart(userId: ID!, productId: ID!, size: String!, quantity: Int!): Cart
-        removeFromCart(userId: ID!, productId: ID!): Cart
-        clearCart(userId: ID!, productId: ID!): Cart
+        removeFromCart(userId: ID!, itemId: ID!): Cart
+        clearCart(userId: ID!): Cart
     }
 `
 

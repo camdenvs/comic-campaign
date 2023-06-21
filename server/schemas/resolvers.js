@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Campaign, News, Product, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
+const cartItemSchema = require('../models/CartItem');
 
 const resolvers = {
     Query: {
@@ -42,10 +43,8 @@ const resolvers = {
                 return await Order.find().sort({ dateAdded: 1 })
             }
         },
-        cart: async (parent, args, context) => {
-            if (context.user) {
-                return await Cart.findOne({ userId: context.user._id })
-            }
+        cart: async (parent, { userId }) => {
+            return await Cart.findOne({ userId: userId })
         }
         // checkout: async (parent, args, context) => {
         // }
@@ -100,7 +99,8 @@ const resolvers = {
             const cart = await Cart.findOne({ userId: userId })
             const item = await Product.findOne({ _id: productId })
             if (cart) {
-                return await cart.update(
+                return await Cart.findOneAndUpdate(
+                    { userId: userId },
                     {
                         $addToSet: {
                             items: {
@@ -108,10 +108,14 @@ const resolvers = {
                                 name: item.name,
                                 size: size,
                                 quantity: quantity,
-                                price: item.price
-                            },
-                            total: cart.total + (quantity*item.price)
-                        }
+                                price: item.price*quantity
+                            }
+                        },
+                        $set: { total: cart.total + (quantity*item.price) }
+                    },
+                    {
+                      new: true,
+                      runValidators: true,
                     }
                 )
             }
@@ -123,25 +127,28 @@ const resolvers = {
                 })
             }
         },
-        removeFromCart: async (parent, { productId }, context) => {
-            const cart = await Cart.findOne({ userId: context.user._id })
-            const item = Product.findOne({ _id: productId })
-            return await cart.update(
+        removeFromCart: async (parent, { itemId, userId }) => {
+            const cart = await Cart.findOne({ userId: userId })
+            const itemIndex = cart.items.findIndex(p => p._id == itemId)
+            console.log(itemIndex)
+            return await cart.updateOne(
                 {
                     $pull: {
-                        items: { productId: productId }
+                        items: { _id: itemId }
+                    },
+                    $set: {
+                        total: (cart.total - Number(cart.items[itemIndex].price))
                     }
                 },
                 {
-                    $set: {
-                        total: (cart.total - item.price)
-                    }
+                  new: true,
+                  runValidators: true,
                 }
             )
         },
-        clearCart: async (parent, args, context) => {
+        clearCart: async (parent, { userId }) => {
             return await Cart.findOneAndDelete(
-                { userId: context.user._id }
+                { userId: userId }
             )
         }
     }
