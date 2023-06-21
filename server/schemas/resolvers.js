@@ -130,7 +130,6 @@ const resolvers = {
         removeFromCart: async (parent, { itemId, userId }) => {
             const cart = await Cart.findOne({ userId: userId })
             const itemIndex = cart.items.findIndex(p => p._id == itemId)
-            console.log(itemIndex)
             return await cart.updateOne(
                 {
                     $pull: {
