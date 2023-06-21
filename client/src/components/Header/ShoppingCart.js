@@ -13,7 +13,7 @@ import {
     Card,
     CardBody,
 } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FaShoppingCart, FaTrash } from 'react-icons/fa'
 import { REMOVE_FROM_CART, CLEAR_CART } from '../../utils/mutations'
 import { useMutation } from '@apollo/client'
@@ -28,8 +28,8 @@ const ShoppingCart = ({ cart, loading }) => {
     const [clearCart] = useMutation(CLEAR_CART)
 
     const handleRemoveItem = async (event) => {
-        const itemId = event.target.value
-        const userId = Auth.getProfile().data._id
+        const itemId = await event.target.value
+        const userId = await Auth.getProfile().data._id
         await removeItem({
             variables: {
                 itemId: itemId,
@@ -48,7 +48,7 @@ const ShoppingCart = ({ cart, loading }) => {
         window.location.reload()
     }
 
-    if (!Auth.loggedIn) {
+    if (!Auth.loggedIn()) {
         return (
             <>
                 <Button _hover='none' fontSize={'48'} bg='none' _focus={{ 'bg': 'none' }} onClick={onOpen} ref={btnRef}><FaShoppingCart></FaShoppingCart></Button>
@@ -82,7 +82,7 @@ const ShoppingCart = ({ cart, loading }) => {
                 <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerHeader>Shopping Cart</DrawerHeader>
-                    {!loading && cart.items ? (
+                    {!loading && cart.items && cart.items.length > 0 ? (
                         <>
                             <DrawerBody>
                                 {cart.items &&
