@@ -6,7 +6,7 @@ import Auth from '../../utils/auth'
 import ShoppingCart from './ShoppingCart'
 
 import { useQuery } from '@apollo/client'
-import { QUERY_ME } from '../../utils/queries'
+import { QUERY_CART } from '../../utils/queries'
 
 const Header = () => {
     const logout = (event) => {
@@ -14,15 +14,16 @@ const Header = () => {
         Auth.logout()
     }
     
-    const { data } = useQuery(QUERY_ME)
-    const me = data?.me || {}
+    const userId = Auth.loggedIn() ? Auth.getProfile().data._id : undefined
+    const { loading, data } = useQuery(QUERY_CART, {variables: { userId: userId }})
+    const cart = data?.cart || {}
 
     return (
         <header>
             <Flex flexDirection='row' border='1px' borderColor='gray.200' boxShadow={'md'} bgColor={'white'} h={'15vh'} justifyContent={'space-around'}>
                 <Box pos='absolute' top='15px' right={{ 'sm': '50px', 'md': '-5px', 'lg': '25px', 'xl': '100px' }} color={'#212C42'}>
                 {Auth.loggedIn() ? (
-                    <ShoppingCart cart={me} />
+                    <ShoppingCart cart={cart} loading={loading}/>
                 ) : (
                     <ShoppingCart />
                 )}

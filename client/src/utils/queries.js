@@ -112,11 +112,12 @@ export const QUERY_ORDERS = gql`
 `
 
 export const QUERY_CART = gql`
-  query cart {
-    cart {
+  query cart($userId: ID!) {
+    cart(userId: $userId) {
       _id
       userId
       items {
+        _id
         productId
         name
         size

@@ -27,17 +27,14 @@ const Product = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log(itemState)
-        console.log(Auth.getProfile().data._id)
-        const { data } = await addToCart({
+        await addToCart({
             variables: {
                 userId: Auth.getProfile().data._id,
                 productId: itemState.productId,
-                quantity: itemState.quantity,
+                quantity: Number(itemState.quantity),
                 size: itemState.size
             }
         })
-        console.log(data)
     }
 
     return (
