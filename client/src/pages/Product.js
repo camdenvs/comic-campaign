@@ -42,8 +42,8 @@ const Product = () => {
             {loading || error ? (
                 <div>Loading...</div>
             ) : (
-                <Box mx={{ sm: '50px', md: '150' }} mt='50' mb='5'>
-                    <Flex flexDir={{ sm: 'column', md: 'row' }}>
+                <Box mx={{ base: '50px', md: '150' }} mt='50' mb='5'>
+                    <Flex flexDir={{ base: 'column', md: 'row' }}>
                         <Image
                             src={product.image}
                             alt={'Product Image'}
@@ -52,7 +52,7 @@ const Product = () => {
                             borderColor={'blackAlpha.400'}
                             w={{ sm: '100%', md: '50%' }}
                         />
-                        <Box mt={5} ml='75' width={{ sm: '75%', md: '100%' }}>
+                        <Box mt={5} ml={{base:'0', md: '75'}} width={{ sm: '75%', md: '100%' }}>
                             <form>
                                 <Heading fontSize={'48px'}>{product.name}</Heading>
                                 <Text fontSize={'36px'} fontWeight={600}>${product.price}</Text>

@@ -18,7 +18,7 @@ const CampaignCard = ({
 }) => {
 
     return (
-        <Flex flexDir='column'>
+        <Flex flexDir='column' mb='5'>
             {campaigns &&
                 campaigns.map((campaign) => (
                     <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'} mt={5}>

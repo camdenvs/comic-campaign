@@ -51,7 +51,7 @@ const ShoppingCart = ({ cart, loading }) => {
     if (!Auth.loggedIn()) {
         return (
             <>
-                <Button _hover='none' fontSize={'48'} bg='none' _focus={{ 'bg': 'none' }} onClick={onOpen} ref={btnRef}><FaShoppingCart></FaShoppingCart></Button>
+                <Button _hover='none' fontSize={'36'} bg='none' _focus={{ 'bg': 'none' }} onClick={onOpen} ref={btnRef}><FaShoppingCart></FaShoppingCart></Button>
                 <Drawer
                     isOpen={isOpen}
                     placement='right'
@@ -71,7 +71,7 @@ const ShoppingCart = ({ cart, loading }) => {
 
     return (
         <>
-            <Button _hover='none' fontSize={'48'} bg='none' _focus={{ 'bg': 'none' }} onClick={onOpen} ref={btnRef}><FaShoppingCart></FaShoppingCart></Button>
+            <Button _hover='none' fontSize={'36'} bg='none' _focus={{ 'bg': 'none' }} onClick={onOpen} ref={btnRef}><FaShoppingCart></FaShoppingCart></Button>
             <Drawer
                 isOpen={isOpen}
                 placement='right'
