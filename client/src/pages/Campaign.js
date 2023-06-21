@@ -58,7 +58,7 @@ const Campaign = () => {
                     bgPosition="top"
                     bgSize="cover"
                     bgRepeat="no-repeat"
-                    h='74vh'
+                    minH='72vh'
                 >
                     {userIsAdmin ? (
                         <>

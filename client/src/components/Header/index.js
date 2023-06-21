@@ -21,7 +21,7 @@ const Header = () => {
     return (
         <header>
             <Flex flexDirection='row' border='1px' borderColor='gray.200' boxShadow={'md'} bgColor={'white'} h={'15vh'} justifyContent={'space-around'}>
-                <Box pos='absolute' top='15px' right={{ 'sm': '50px', 'md': '-5px', 'lg': '25px', 'xl': '100px' }} color={'#212C42'}>
+                <Box pos='absolute' top='15px' right={'0.2%'} color={'#212C42'}>
                 {Auth.loggedIn() ? (
                     <ShoppingCart cart={cart} loading={loading}/>
                 ) : (
