@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const commentSchema = require('./Comment')
 // const { Model, DataTypes } = require('sequelize');
 // const sequelize = require('../config/connection');
 
@@ -41,7 +42,21 @@ const campaignSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-    }
+    },
+    updates: [{
+        authorId: {
+            type: Schema.Types.ObjectId,
+            ref: 'user'
+        },
+        title: String,
+        body: String,
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
+    }],
+    comments: [commentSchema],
+    story: String
 })
 
 // * The following commented code blocks are for the former MySQL model

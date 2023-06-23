@@ -26,6 +26,35 @@ const typeDefs = gql`
         isActive: Boolean
         createdAt: String
         image: String
+        updates: [Update]
+        comments: [Comment]
+        story: String
+    }
+
+    type Update {
+        _id: ID
+        authorId: ID
+        title: String
+        body: String
+        createdAt: String
+    }
+
+    type Comment {
+        _id: ID
+        authorId: ID
+        text: String
+        createdAt: String
+        upvotes: Int
+        downvotes: Int
+        replies: [Reply]
+    }
+
+    type Reply {
+        _id: ID
+        authorId: ID
+        createdAt: String
+        upvotes: Int
+        downvotes: Int
     }
 
     type News {
