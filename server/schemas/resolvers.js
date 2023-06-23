@@ -1,7 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Campaign, News, Product, Order, Cart } = require('../models');
 const { signToken } = require('../utils/auth');
-const cartItemSchema = require('../models/CartItem');
+require('dotenv').config()
+const stripe = require("stripe")(process.env.STRIPE_KEY)
 
 const resolvers = {
     Query: {
@@ -45,9 +46,33 @@ const resolvers = {
         },
         cart: async (parent, { userId }) => {
             return await Cart.findOne({ userId: userId })
+        },
+        checkout: async (parent, { cartId }, context) => {
+            const cart = await Cart.findOne({ _id: cartId })
+            const url = new URL(context.headers.referer).origin
+
+            const line_items = []
+
+            cart.items.forEach(async (item) => {
+                const product = await Product.findOne({ _id: item.productId })
+                const stripeProduct = await stripe.products.retrieve(product.stripeProductId)
+                
+                line_items.push({
+                    price: stripeProduct.default_price,
+                    quantity: item.quantity
+                })
+            })
+
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}/success`,
+                cancel_url: `${url}/`
+            })
+
+            return { session: session.id }
         }
-        // checkout: async (parent, args, context) => {
-        // }
     },
 
     Mutation: {
@@ -62,7 +87,15 @@ const resolvers = {
             )
         },
         createProduct: async (parent, { name, price, description, image, category, sizes }) => {
-            return await Product.create({ name, price, description, image, category, sizes })
+            const stripeProductId = await stripe.products.create({
+                name: name,
+                description: description,
+                default_price_data: {
+                    unit_amount: price * 100,
+                    currency: 'usd',
+                }
+            })
+            return await Product.create({ name, price, description, image, category, sizes, stripeProductId: stripeProductId.id })
         },
         removeProduct: async (parent, { productId }) => {
             return await Product.findOneAndDelete({ _id: productId })

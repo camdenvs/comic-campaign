@@ -28,6 +28,10 @@ const productSchema = new Schema(
         sizes: {
             type: String,
             default: ''
+        },
+        stripeProductId: {
+            type: String,
+            required: true
         }
     }
 )

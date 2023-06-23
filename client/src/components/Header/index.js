@@ -94,14 +94,10 @@ const Header = () => {
                                 <MenuItem as={RouteLink} to='/news' mr={{ md: '5', lg: '10' }}>News</MenuItem>
                                 {Auth.loggedIn() ? (
                                     <>
-                                        <MenuItem>
-                                            <Link onClick={logout} textDecoration={'none'} mr={{ md: 'none', xl: '190px' }}>Logout</Link>
-                                        </MenuItem>
+                                        <MenuItem onClick={logout} textDecoration={'none'} mr={{ md: 'none', xl: '190px' }}>Logout</MenuItem>
                                     </>
                                 ) : (
-                                    <MenuItem mr={{ md: 'none', xl: '190px' }}>
-                                        <Link as={RouteLink} to='/login'>Login</Link>
-                                    </MenuItem>
+                                    <MenuItem mr={{ md: 'none', xl: '190px' }}as={RouteLink} to='/login'>Login</MenuItem>
                                 )}
                             </MenuList>
                         </Menu>

@@ -43,6 +43,7 @@ const typeDefs = gql`
         image: String
         category: String
         sizes: String
+        stripeProductId: String
     }
 
     type Item {
@@ -64,9 +65,14 @@ const typeDefs = gql`
     type Order {
         _id: ID
         userId: ID
+        shippingAddress: String
         items: [Item]
         total: Int
         date_added: String
+    }
+
+    type Checkout {
+        session: ID
     }
 
     type Query {
@@ -81,6 +87,7 @@ const typeDefs = gql`
         news(newsId: ID!): News
         orders(userId: ID): Order
         cart(userId: ID!): Cart
+        checkout(cartId: ID!): Checkout
     }
     
     type Mutation {
