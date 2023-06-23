@@ -28,6 +28,14 @@ export const QUERY_SINGLE_CAMPAIGN = gql`
       description
       isActive
       image
+      updates {
+        authorId
+        title
+        body
+        createdAt
+      }
+      comments
+      story
     }
   }
 `;
