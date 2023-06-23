@@ -13,11 +13,13 @@ import {
     Card,
     CardBody,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaShoppingCart, FaTrash } from 'react-icons/fa'
 import { REMOVE_FROM_CART, CLEAR_CART } from '../../utils/mutations'
-import { useMutation } from '@apollo/client'
+import { CHECKOUT } from '../../utils/queries'
+import { useMutation, useLazyQuery } from '@apollo/client'
 import Auth from '../../utils/auth'
+import { loadStripe } from "@stripe/stripe-js"
 
 
 const ShoppingCart = ({ cart, loading }) => {
@@ -26,6 +28,19 @@ const ShoppingCart = ({ cart, loading }) => {
 
     const [removeItem] = useMutation(REMOVE_FROM_CART)
     const [clearCart] = useMutation(CLEAR_CART)
+    const [checkout, { data }] = useLazyQuery(CHECKOUT)
+    
+    const stripePromise = loadStripe(
+        "pk_test_51Mlkl2B4isP22xRkEuqoS88b0ddSQDJQrMPSoD0DWxh8EVIFNj7Zhwqu8g19n4OYucrw1Ld6yrtwURsJNXqHcQAR009eCt8weO"
+    );
+
+    useEffect(() => {
+        if (data) {
+          stripePromise.then((res) => {
+            res.redirectToCheckout({ sessionId: data.checkout.session });
+          });
+        }
+    }, [data, stripePromise]);
 
     const handleRemoveItem = async (event) => {
         const itemId = await event.target.value
@@ -46,6 +61,15 @@ const ShoppingCart = ({ cart, loading }) => {
             }
         })
         window.location.reload()
+    }
+
+    const handleCheckout = async (event) => {
+        event.preventDefault()
+        await checkout({
+            variables: {
+                cartId: cart._id
+            }
+        })
     }
 
     if (!Auth.loggedIn()) {
@@ -103,11 +127,14 @@ const ShoppingCart = ({ cart, loading }) => {
                                         </Card>
                                     ))
                                 }
-                                Total: ${cart.total}
+                                Subtotal: ${cart.total}
                             </DrawerBody>
                             <DrawerFooter>
                                 <Button variant='outline' mr={3} onClick={onClose}>
                                     Close
+                                </Button>
+                                <Button colorScheme='blue' mr={3} onClick={handleCheckout}>
+                                    Checkout
                                 </Button>
                                 <Button colorScheme='red' onClick={handleClearCart}>Clear</Button>
                             </DrawerFooter>
