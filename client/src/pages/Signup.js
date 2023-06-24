@@ -8,9 +8,7 @@ import {
     Input,
     FormControl,
     FormLabel,
-    FormHelperText,
     Button,
-    Checkbox,
     Box
 } from "@chakra-ui/react";
 
