@@ -5,14 +5,15 @@ import CampaignCard from "../components/CampaignCard"
 
 import { QUERY_CAMPAIGNS, QUERY_ME } from "../utils/queries"
 import { CREATE_CAMPAIGN } from "../utils/mutations"
-import { Box, Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { useToast, Box, Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
 
 const Campaign = () => {
     document.addEventListener('trix-before-initialize', () => { })
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef(null)
+    const toast = useToast()
 
-    const [formState, setFormState] = useState({ title: '', goalAmount: '', goalDate: '', description: '', image: ''})
+    const [formState, setFormState] = useState({ title: '', goalAmount: '', goalDate: '', description: '', image: '' })
     const { loading, data } = useQuery(QUERY_CAMPAIGNS)
     const campaigns = data?.campaigns || []
 
@@ -23,11 +24,19 @@ const Campaign = () => {
     const handleFormSubmit = () => {
         console.log(formState)
         try {
-        createCampaign({
-            variables: {
-                ...formState
-            }
-        })
+            createCampaign({
+                variables: {
+                    ...formState
+                }
+            })
+            toast({
+                title: `Campaign created!`,
+                description: `${formState.title} has been created.`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true
+            })
+            window.location.assign('/campaigns')
         } catch (e) {
             console.log(e)
         }
@@ -49,71 +58,86 @@ const Campaign = () => {
     }
 
     return (
-        <main>
+        <Box minH='72vh'>
             {loading ? (
                 <div>Loading...</div>
             ) : (
-                <Box
-                    bgImage={"url('/assets/images/bckgrnd-banner2.jpg')"}
-                    bgPosition="top"
-                    bgSize="cover"
-                    bgRepeat="no-repeat"
-                    minH='72vh'
-                >
-                    {userIsAdmin ? (
-                        <>
-                            <Center><Button ref={btnRef} onClick={onOpen} border={'0'} w='55%' boxShadow={'lg'} mt='5' bgColor={'green.300'} color={'white'} textShadow={'1px 1px black'} _hover={{ bgColor: 'green.400' }}>Add New Campaign</Button></Center>
-                            <Modal
-                                onClose={onClose}
-                                finalFocusRef={btnRef}
-                                isOpen={isOpen}
-                                scrollBehavior={"inside"}
-                                size={'lg'}
-                            >
-                                <ModalOverlay />
-                                <ModalContent >
-                                    <ModalHeader><Center>Add New Campaign</Center></ModalHeader>
-                                    <ModalCloseButton />
-                                    <ModalBody>
-                                        <form>
-                                            <FormControl mb={2}>
-                                                <FormLabel>Campaign Image</FormLabel>
-                                                <input type='file' value={formState.image} name='image' onChange={handleChange}/>
-                                            </FormControl>
-                                            <FormControl>
-                                                <FormLabel>Campaign Title</FormLabel>
-                                                <Input name='title' value={formState.title} onChange={handleChange}/>
-                                            </FormControl>
-                                            <FormControl>
-                                                <FormLabel>Description</FormLabel>
-                                                <Input name='description' value={formState.description} onChange={handleChange}/>
-                                            </FormControl>
-                                            <FormControl>
-                                                <FormLabel>Goal Amount</FormLabel>
-                                                <Input name='goalAmount' type='number' value={formState.goalAmount} onChange={(e) => handleNumberChange(Number(e.target.value))}/>
-                                            </FormControl>
-                                            <FormControl>
-                                                <FormLabel>Goal Date</FormLabel>
-                                                <Input name='goalDate' value={formState.goalDate} onChange={handleChange}/>
-                                            </FormControl>
-                                        </form>
-                                    </ModalBody>
-                                    <ModalFooter>
-                                        <Button onClick={handleFormSubmit} mr='3' bgColor={'green.300'} color={'white'} _hover={{ bgColor: 'green.400' }}>Submit</Button>
-                                        <Button onClick={onClose}>Close</Button>
-                                    </ModalFooter>
-                                </ModalContent>
-                            </Modal>
-                        </>
-                    ) :
-                        <></>
-                    }
-                    <CampaignCard
-                        campaigns={campaigns}
+                <>
+                    <Box
+                        position={'fixed'}
+                        left='0'
+                        right={'0'}
+                        zIndex={1}
+                        bgImage={"url('/assets/images/bckgrnd-banner2.jpg')"}
+                        bgPosition="top"
+                        bgSize="cover"
+                        bgRepeat="no-repeat"
+                        minH='72vh'
+                        filter={'auto'}
+                        brightness={'60%'}
+                        saturate={'0.7'}
                     />
-                </Box>
+                    <Box
+                        position={'fixed'}
+                        left='0'
+                        right={'0'}
+                        zIndex={2}
+                    >
+                        {userIsAdmin ? (
+                            <>
+                                <Center><Button ref={btnRef} onClick={onOpen} border={'0'} w='55%' boxShadow={'lg'} mt='5' bgColor={'green.300'} color={'white'} textShadow={'1px 1px black'} _hover={{ bgColor: 'green.400' }}>Add New Campaign</Button></Center>
+                                <Modal
+                                    onClose={onClose}
+                                    finalFocusRef={btnRef}
+                                    isOpen={isOpen}
+                                    scrollBehavior={"inside"}
+                                    size={'lg'}
+                                >
+                                    <ModalOverlay />
+                                    <ModalContent >
+                                        <ModalHeader><Center>Add New Campaign</Center></ModalHeader>
+                                        <ModalCloseButton />
+                                        <ModalBody>
+                                            <form>
+                                                <FormControl mb={2}>
+                                                    <FormLabel>Campaign Image</FormLabel>
+                                                    <input type='file' value={formState.image} name='image' onChange={handleChange} />
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>Campaign Title</FormLabel>
+                                                    <Input name='title' value={formState.title} onChange={handleChange} />
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>Description</FormLabel>
+                                                    <Input name='description' value={formState.description} onChange={handleChange} />
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>Goal Amount</FormLabel>
+                                                    <Input name='goalAmount' type='number' value={formState.goalAmount} onChange={(e) => handleNumberChange(Number(e.target.value))} />
+                                                </FormControl>
+                                                <FormControl>
+                                                    <FormLabel>Goal Date</FormLabel>
+                                                    <Input name='goalDate' value={formState.goalDate} onChange={handleChange} />
+                                                </FormControl>
+                                            </form>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                            <Button onClick={handleFormSubmit} mr='3' bgColor={'green.300'} color={'white'} _hover={{ bgColor: 'green.400' }}>Submit</Button>
+                                            <Button onClick={onClose}>Close</Button>
+                                        </ModalFooter>
+                                    </ModalContent>
+                                </Modal>
+                            </>
+                        ) :
+                            <></>
+                        }
+                        <CampaignCard
+                            campaigns={campaigns}
+                        />
+                    </Box>
+                </>
             )}
-        </main>
+        </Box>
     )
 }
 

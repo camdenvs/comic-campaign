@@ -47,7 +47,7 @@ const Header = () => {
                             <ListItem mr={{ md: '5', lg: '10' }}>
                                 <Menu>
                                     <MenuButton as={Link}>Store</MenuButton>
-                                    <MenuList>
+                                    <MenuList zIndex={999}>
                                         <MenuItem as={RouteLink} to='/store' fontSize={24}>Shop All</MenuItem>
                                         <MenuItem as={RouteLink} to='/store/apparel' fontSize={24}>Apparel</MenuItem>
                                         <MenuItem as={RouteLink} to='/store/action-figures' fontSize={24}>Action Figures</MenuItem>
@@ -86,7 +86,7 @@ const Header = () => {
                                     w={75}
                                 />
                             </MenuButton>
-                            <MenuList>
+                            <MenuList zIndex={999}>
                                 <MenuItem as={RouteLink} to='/' mr={{ md: '5', lg: '10' }}>Home</MenuItem>
                                 <MenuItem as={RouteLink} to='/about' mr={{ md: '5', lg: '10' }}>About</MenuItem>
                                 <MenuItem as={RouteLink} to='/store' mr={{ md: '5', lg: '10' }}>Store</MenuItem>
