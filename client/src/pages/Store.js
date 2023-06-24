@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
+import { useToast, Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
 
 import { useQuery, useMutation } from "@apollo/client"
 import { useParams } from "react-router-dom"
@@ -12,7 +12,7 @@ const Store = () => {
     const [ formState, setFormState ] = useState({ image: '', name: '', description: '', price: '', sizes: '', category: 'apparel' })
     const [ fileState, setFileState ] = useState()
     const { category } = useParams() || {}
-
+    const toast = useToast()
     const userData = useQuery(QUERY_ME)
     const userIsAdmin = userData.data?.me.isAdmin
 
@@ -76,7 +76,14 @@ const Store = () => {
                     ...formState
                 }
             })
-            
+            toast({
+                title: `Product created!`,
+                description: `${formState.name} has been created.`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true
+            })
+            window.location.assign('/store')
         } catch (err) {
             console.log(err)
         }

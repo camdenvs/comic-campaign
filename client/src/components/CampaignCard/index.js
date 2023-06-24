@@ -22,7 +22,7 @@ const CampaignCard = ({
             {campaigns &&
                 campaigns.map((campaign) => (
                     <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'} mt={5}>
-                        <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }}>
+                        <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }} _hover={'none'}>
                             <Heading px='5' pt='5'>{campaign.title}</Heading>
                             <CardBody>
                                 <Text py={3} px={2} fontSize={24}>{campaign.earned} / {campaign.goalAmount}</Text>
