@@ -1,19 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 
-import { Box, Container, Image, Button } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
 const Home = () => {
-    const [imageIndex, setImageIndex] = useState(0)
-
-    const imageUrls = ['ActionFigures-SS.jpg', 'RektPlanet-SS.jpg', 'RTB-SS.jpg']
-
-    const handleSlideshowScrollLeft = (event) => {
-        event.preventDefault()
-        let newIndex = imageIndex - 1
-        if (newIndex < 0) newIndex = imageUrls.length - 1
-        setImageIndex(newIndex)
-    }
-
     return (
         <main>
             <Box

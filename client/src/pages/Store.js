@@ -4,7 +4,7 @@ import { useToast, Box, Button, Center, Flex, Select, FormControl, FormLabel, In
 import { useQuery, useMutation } from "@apollo/client"
 import { useParams } from "react-router-dom"
 import { QUERY_ME, QUERY_PRODUCTS } from "../utils/queries"
-import { CREATE_PRODUCT, UPLOAD_FILE } from "../utils/mutations"
+import { CREATE_PRODUCT } from "../utils/mutations"
 
 import ProductCard from "../components/ProductCard"
 

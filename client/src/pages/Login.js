@@ -8,18 +8,15 @@ import {
   Input,
   FormControl,
   FormLabel,
-  FormHelperText,
   Text,
   Button,
   Link,
   Box,
-  HStack,
-  Icon,
 } from "@chakra-ui/react";
 
 const Login = () => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN);
+  const [login] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
