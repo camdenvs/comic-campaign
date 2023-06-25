@@ -3,7 +3,7 @@
   "homepage": "https://cyberfrogshop.com/",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "https://cyberfrogshop-ae84083b07a0.herokuapp.com/",
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@chakra-ui/react": "^2.5.1",

@@ -6,7 +6,7 @@ import {
   createHttpLink,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home'
 import Campaign from './pages/Campaign'
@@ -97,6 +97,8 @@ function App() {
               path='/news/:newsId'
               element={<OneNews />}
             />
+
+            <Route path='*' element={<Navigate to='/'/>} />
           </Routes>
           <Footer />
         </Flex>
