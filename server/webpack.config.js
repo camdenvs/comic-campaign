@@ -6,15 +6,9 @@ module.exports = {
     entry: './server.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.bundle.js',
+        filename: 'main.js',
         publicPath: '/'
     },
-    plugins: [
-        new WorkboxWebpackPlugin.GenerateSW({
-            clientsClaim: true,
-            skipWaiting: true
-        })
-    ],
     module: {
         rules: [
             {
