@@ -107,10 +107,10 @@ const Store = () => {
                         <ModalCloseButton />
                         <ModalBody>
                             <form>
-                                <FormControl mb={2}>
+                                {/* <FormControl mb={2}>
                                     <FormLabel>Product Image</FormLabel>
                                     <input type='file' name='image' value={formState.image} onChange={handleFileChange} id="image" />
-                                </FormControl>
+                                </FormControl> */}
                                 <FormControl>
                                     <FormLabel>Product Name</FormLabel>
                                     <Input name='name' value={formState.name} onChange={handleChange} />

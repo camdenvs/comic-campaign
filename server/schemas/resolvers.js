@@ -77,7 +77,7 @@ const resolvers = {
 
     Mutation: {
         createCampaign: async (parent, { title, goalAmount, goalDate, description, image }) => {
-            return await Campaign.create({ title, goalAmount, goalDate, description, image })
+            return await Campaign.create({ title, goalAmount, goalDate, description, image: 'all-caps-placeholder.jpg' })
         },
         updateCampaign: async (parent, args) => {
             return await Campaign.findOneAndUpdate(
@@ -95,7 +95,7 @@ const resolvers = {
                     currency: 'usd',
                 }
             })
-            return await Product.create({ name, price, description, image, category, sizes, stripeProductId: stripeProductId.id })
+            return await Product.create({ name, price, description, image: 'all-caps-placeholder.jpg', category, sizes, stripeProductId: stripeProductId.id })
         },
         removeProduct: async (parent, { productId }) => {
             return await Product.findOneAndDelete({ _id: productId })

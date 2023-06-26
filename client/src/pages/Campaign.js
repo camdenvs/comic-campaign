@@ -99,10 +99,10 @@ const Campaign = () => {
                                         <ModalCloseButton />
                                         <ModalBody>
                                             <form>
-                                                <FormControl mb={2}>
+                                                {/* <FormControl mb={2}>
                                                     <FormLabel>Campaign Image</FormLabel>
                                                     <input type='file' value={formState.image} name='image' onChange={handleChange} />
-                                                </FormControl>
+                                                </FormControl> */}
                                                 <FormControl>
                                                     <FormLabel>Campaign Title</FormLabel>
                                                     <Input name='title' value={formState.title} onChange={handleChange} />
