@@ -10,7 +10,7 @@ import ProductCard from "../components/ProductCard"
 
 const Store = () => {
     const [ formState, setFormState ] = useState({ image: '', name: '', description: '', price: '', sizes: '', category: 'apparel' })
-    const [ fileState, setFileState ] = useState()
+    // const [ fileState, setFileState ] = useState()
     const { category } = useParams() || {}
     const toast = useToast()
     const userData = useQuery(QUERY_ME)
