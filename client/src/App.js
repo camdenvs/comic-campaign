@@ -24,7 +24,7 @@ import { Flex } from '@chakra-ui/react';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
-  uri: 'https://cyberfrogshop-ae84083b07a0.herokuapp.com/',
+  uri: 'https://cyberfrogshop-ae84083b07a0.herokuapp.com/graphql',
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header
