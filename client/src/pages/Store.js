@@ -42,23 +42,23 @@ const Store = () => {
         });
     }
 
-    const handleFileChange = async (event) => {
-        const { name, value } = event.target
-        const file = event.target.files[0]
-        setFormState({
-            ...formState,
-            [name]: value
-        });
-        setFileState(
-            file
-        )
-        // const { data } = await uploadFile({
-        //     variables: {
-        //         file
-        //     }
-        // })
-        // console.log(data)
-    }
+    // const handleFileChange = async (event) => {
+    //     const { name, value } = event.target
+    //     const file = event.target.files[0]
+    //     setFormState({
+    //         ...formState,
+    //         [name]: value
+    //     });
+    //     setFileState(
+    //         file
+    //     )
+    //     // const { data } = await uploadFile({
+    //     //     variables: {
+    //     //         file
+    //     //     }
+    //     // })
+    //     // console.log(data)
+    // }
 
     const handleFormSubmit = async () => {
         console.log(formState)
