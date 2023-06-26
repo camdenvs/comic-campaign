@@ -90,7 +90,7 @@ const OneCampaign = () => {
                                 <div>This campaign is no longer active</div>
                             )}
                         </Container>
-                        <Image src={campaign.image} maxW={'55%'}/>
+                        <Image src={`assets/images/${campaign.image}`} maxW={'55%'}/>
                     </Flex>
                     <Flex>
                         <Tabs>
