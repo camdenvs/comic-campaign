@@ -45,8 +45,7 @@ const Login = () => {
       bgPosition="center"
       bgSize="cover"
       bgRepeat="no-repeat"
-      h='74vh'
-    >
+      h='74vh'>
       <Container
         mt={'10vh'}
         maxW='500px'
