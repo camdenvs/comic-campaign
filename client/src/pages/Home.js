@@ -1,24 +1,39 @@
 import React from "react"
+import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css'
 
-import { Box } from '@chakra-ui/react'
+const divStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundSize: '90%',
+    backgroundRepeat: 'no-repeat',
+    height: '85vh',
+    backgroundPosition: 'center'
+}
+const slideImages = [
+    {
+        url: '/assets/images/slideshow/ActionFigures-SS.jpg',
+    },
+    {
+        url: '/assets/images/slideshow/RektPlanet-SS.jpg'
+    },
+    {
+        url: '/assets/images/slideshow/RTB-SS.jpg'
+    },
+];
 
 const Home = () => {
     return (
         <main>
-            <Box
-                position={'fixed'}
-                left='0'
-                right={'0'}
-                zIndex={1}
-                bgImage={"url('/assets/images/bckgrnd-banner1.jpg')"}
-                bgPosition="top"
-                bgSize="cover"
-                bgRepeat="no-repeat"
-                minH='72vh'
-                filter={'auto'}
-                brightness={'50%'}
-                saturate={'0.7'}
-            />
+            <Slide>
+                {slideImages.map((slideImage, index) => (
+                    <div key={index}>
+                        <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
+                        </div>
+                    </div>
+                ))}
+            </Slide>
         </main>
     )
 }

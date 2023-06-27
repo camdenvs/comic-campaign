@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useToast, Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, FormErrorMessage, FormHelperText } from '@chakra-ui/react'
+import { useToast, Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, FormErrorMessage, FormHelperText, Textarea } from '@chakra-ui/react'
 
 import { useQuery, useMutation } from "@apollo/client"
 import { useParams } from "react-router-dom"
@@ -123,7 +123,7 @@ const Store = () => {
                                 </FormControl>
                                 <FormControl isInvalid={(formState.description === '')} isRequired>
                                     <FormLabel>Description</FormLabel>
-                                    <Input name='description' value={formState.description} onChange={handleChange}/>
+                                    <Textarea name='description' value={formState.description} onChange={handleChange}/>
                                     <FormErrorMessage>Description required</FormErrorMessage>
                                 </FormControl>
                                 <FormControl isInvalid={(formState.price === '')} isRequired>
