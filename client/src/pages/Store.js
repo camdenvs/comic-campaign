@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useToast, Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
+import { useToast, Box, Button, Center, Flex, Select, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, FormErrorMessage, FormHelperText } from '@chakra-ui/react'
 
 import { useQuery, useMutation } from "@apollo/client"
 import { useParams } from "react-router-dom"
@@ -69,7 +69,7 @@ const Store = () => {
             // })
             // console.log(data)
 
-            createProduct({
+            await createProduct({
                 variables: {
                     ...formState
                 }
@@ -84,6 +84,13 @@ const Store = () => {
             window.location.assign('/store')
         } catch (err) {
             console.log(err)
+            toast({
+                title: `There was an error in creating your product`,
+                description: `Please check all fields`,
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+            })
         }
     }
 
@@ -109,19 +116,23 @@ const Store = () => {
                                     <FormLabel>Product Image</FormLabel>
                                     <input type='file' name='image' value={formState.image} onChange={handleFileChange} id="image" />
                                 </FormControl> */}
-                                <FormControl>
+                                <FormControl isInvalid={(formState.name === '')} isRequired>
                                     <FormLabel>Product Name</FormLabel>
                                     <Input name='name' value={formState.name} onChange={handleChange} />
+                                    <FormErrorMessage>Name required</FormErrorMessage>
                                 </FormControl>
-                                <FormControl>
+                                <FormControl isInvalid={(formState.description === '')} isRequired>
                                     <FormLabel>Description</FormLabel>
-                                    <Input name='description' value={formState.description} onChange={handleChange} />
+                                    <Input name='description' value={formState.description} onChange={handleChange}/>
+                                    <FormErrorMessage>Description required</FormErrorMessage>
                                 </FormControl>
-                                <FormControl>
+                                <FormControl isInvalid={(formState.price === '')} isRequired>
                                     <FormLabel>Price</FormLabel>
-                                    <Input type='number' name='price' value={formState.price} onChange={(e) => handlePriceChange(Number(e.target.value))} />
+                                    <Input type='number' name='price' value={formState.price} onChange={(e) => handlePriceChange(Number(e.target.value))}/>
+                                    <FormHelperText>Please enter a whole number.</FormHelperText>
+                                    <FormErrorMessage>Price required</FormErrorMessage>
                                 </FormControl>
-                                <FormControl>
+                                <FormControl isRequired>
                                     <FormLabel>Category</FormLabel>
                                     <Select name='category' value={formState.category} onChange={handleChange}>
                                         <option value='apparel'>Apparel</option>
@@ -134,6 +145,8 @@ const Store = () => {
                                 <FormControl>
                                     <FormLabel>Multiple Sizes? If no, leave blank.</FormLabel>
                                     <Input name='sizes' value={formState.sizes} onChange={handleChange} />
+                                    <FormHelperText>Please seperate sizes by commas.</FormHelperText>
+                                    <FormHelperText>Example: Men's Large,Men's Medium,Men's Small</FormHelperText>
                                 </FormControl>
                             </form>
                         </ModalBody>

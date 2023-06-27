@@ -5,7 +5,7 @@ import CampaignCard from "../components/CampaignCard"
 
 import { QUERY_CAMPAIGNS, QUERY_ME } from "../utils/queries"
 import { CREATE_CAMPAIGN } from "../utils/mutations"
-import { useToast, Box, Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import { useToast, Box, Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Textarea, FormHelperText } from "@chakra-ui/react"
 
 const Campaign = () => {
     document.addEventListener('trix-before-initialize', () => { })
@@ -21,10 +21,10 @@ const Campaign = () => {
     const userData = useQuery(QUERY_ME)
     const userIsAdmin = userData.data?.me.isAdmin
 
-    const handleFormSubmit = () => {
+    const handleFormSubmit = async () => {
         console.log(formState)
         try {
-            createCampaign({
+            await createCampaign({
                 variables: {
                     ...formState
                 }
@@ -39,6 +39,13 @@ const Campaign = () => {
             window.location.assign('/campaigns')
         } catch (e) {
             console.log(e)
+            toast({
+                title: `There was an error creating your campaign`,
+                description: `Please check all fields`,
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+            })
         }
     }
 
@@ -103,19 +110,20 @@ const Campaign = () => {
                                                     <FormLabel>Campaign Image</FormLabel>
                                                     <input type='file' value={formState.image} name='image' onChange={handleChange} />
                                                 </FormControl> */}
-                                                <FormControl>
+                                                <FormControl isInvalid={(formState.title === '')} isRequired>
                                                     <FormLabel>Campaign Title</FormLabel>
                                                     <Input name='title' value={formState.title} onChange={handleChange} />
                                                 </FormControl>
-                                                <FormControl>
+                                                <FormControl isInvalid={(formState.description === '')} isRequired>
                                                     <FormLabel>Description</FormLabel>
-                                                    <Input name='description' value={formState.description} onChange={handleChange} />
+                                                    <Textarea name='description' value={formState.description} onChange={handleChange} />
                                                 </FormControl>
-                                                <FormControl>
+                                                <FormControl isInvalid={(formState.goalAmount === '')} isRequired>
                                                     <FormLabel>Goal Amount</FormLabel>
                                                     <Input name='goalAmount' type='number' value={formState.goalAmount} onChange={(e) => handleNumberChange(Number(e.target.value))} />
+                                                    <FormHelperText>Please enter a whole number.</FormHelperText>
                                                 </FormControl>
-                                                <FormControl>
+                                                <FormControl isInvalid={(formState.goalDate === '')} isRequired>
                                                     <FormLabel>Goal Date</FormLabel>
                                                     <Input name='goalDate' value={formState.goalDate} onChange={handleChange} />
                                                 </FormControl>
