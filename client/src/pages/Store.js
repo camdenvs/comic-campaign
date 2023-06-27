@@ -61,8 +61,6 @@ const Store = () => {
     // }
 
     const handleFormSubmit = async () => {
-        console.log(formState)
-        console.log(fileState)
         try {
             // var { data } = await uploadFile({
             //     variables: {
