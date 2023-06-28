@@ -53,15 +53,16 @@ const resolvers = {
 
             const line_items = []
 
-            cart.items.forEach(async (item) => {
-                const product = await Product.findOne({ _id: item.productId })
+            for(i = 0; i < cart.items; i++) {
+                const product = await Product.findOne({ _id: cart.items[i].productId })
                 const stripeProduct = await stripe.products.retrieve(product.stripeProductId)
-                
+                console.log(stripeProduct)
                 line_items.push({
                     price: stripeProduct.default_price,
-                    quantity: item.quantity
+                    quantity: cart.items[i].quantity
                 })
-            })
+                console.log(line_items)
+            }
 
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
@@ -70,7 +71,7 @@ const resolvers = {
                 success_url: `${url}/success`,
                 cancel_url: `${url}/`
             })
-            console.log(session)
+            
 
             return { session: session.id }
         }
