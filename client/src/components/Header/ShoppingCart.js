@@ -37,7 +37,7 @@ const ShoppingCart = ({ cart, loading }) => {
     useEffect(() => {
         if (data) {
           stripePromise.then((res) => {
-            res.redirect(303, data.url);
+            res.redirect(303, data.session);
           });
         }
     }, [data, stripePromise]);

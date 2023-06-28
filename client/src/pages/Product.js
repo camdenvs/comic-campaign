@@ -7,7 +7,6 @@ import { ADD_TO_CART } from '../utils/mutations'
 import Auth from '../utils/auth'
 
 const Product = () => {
-    const [cart, setCart] = useState([])
     const { productId } = useParams()
     const { loading, error, data } = useQuery(QUERY_SINGLE_PRODUCT, {
         variables: { productId: productId }
@@ -38,7 +37,7 @@ const Product = () => {
                     size: itemState.size
                 }
             })
-            setCart([...cart, itemState.productId])
+            window.location.reload(false)
         }
         catch (e) {
             toast({
