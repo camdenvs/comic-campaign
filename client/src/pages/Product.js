@@ -1,18 +1,20 @@
 import React, { useState } from "react"
 import { useParams } from 'react-router-dom'
 import { useQuery, useMutation } from "@apollo/client"
-import { Box, Button, Flex, Heading, Image, Input, Select, Text } from "@chakra-ui/react"
+import { useToast, Box, Button, Flex, Heading, Image, Input, Select, Text } from "@chakra-ui/react"
 import { QUERY_SINGLE_PRODUCT } from "../utils/queries"
 import { ADD_TO_CART } from '../utils/mutations'
 import Auth from '../utils/auth'
 
 const Product = () => {
+    const [cart, setCart] = useState([])
     const { productId } = useParams()
     const { loading, error, data } = useQuery(QUERY_SINGLE_PRODUCT, {
         variables: { productId: productId }
     })
     const [addToCart] = useMutation(ADD_TO_CART)
     const product = data?.product || {}
+    const toast = useToast()
 
     const sizes = product.sizes?.split(',') || []
     const [itemState, setItemState] = useState({ productId: productId, quantity: 1, size: sizes[0] || '' })
@@ -27,14 +29,26 @@ const Product = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        await addToCart({
-            variables: {
-                userId: Auth.getProfile().data._id,
-                productId: itemState.productId,
-                quantity: Number(itemState.quantity),
-                size: itemState.size
-            }
-        })
+        try{
+            await addToCart({
+                variables: {
+                    userId: Auth.getProfile().data._id,
+                    productId: itemState.productId,
+                    quantity: Number(itemState.quantity),
+                    size: itemState.size
+                }
+            })
+            setCart([...cart, itemState.productId])
+        }
+        catch (e) {
+            toast({
+                title: `Couldn't add to cart.`,
+                description: `Make sure you are logged in.`,
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+            })
+        }
     }
 
     return (
@@ -52,7 +66,7 @@ const Product = () => {
                             borderColor={'blackAlpha.400'}
                             w={{ sm: '100%', md: '50%' }}
                         />
-                        <Box mt={5} ml={{base:'0', md: '75'}} width={{ sm: '75%', md: '100%' }}>
+                        <Box mt={5} ml={{ base: '0', md: '75' }} width={{ sm: '75%', md: '100%' }}>
                             <form>
                                 <Heading fontSize={'48px'}>{product.name}</Heading>
                                 <Text fontSize={'36px'} fontWeight={600}>${product.price}</Text>
