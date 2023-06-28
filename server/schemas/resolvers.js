@@ -53,15 +53,13 @@ const resolvers = {
 
             const line_items = []
 
-            for(i = 0; i < cart.items; i++) {
-                const product = await Product.findOne({ _id: cart.items[i].productId })
+            for (let item of cart.items) {
+                const product = await Product.findOne({ _id: item.productId })
                 const stripeProduct = await stripe.products.retrieve(product.stripeProductId)
-                console.log(stripeProduct)
                 line_items.push({
                     price: stripeProduct.default_price,
-                    quantity: cart.items[i].quantity
+                    quantity: item.quantity
                 })
-                console.log(line_items)
             }
 
             const session = await stripe.checkout.sessions.create({
