@@ -101,7 +101,7 @@ const typeDefs = gql`
     }
 
     type Checkout {
-        session: String
+        session: ID
     }
 
     type Query {

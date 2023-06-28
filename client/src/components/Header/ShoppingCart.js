@@ -29,16 +29,16 @@ const ShoppingCart = ({ cart, loading }) => {
     const [removeItem] = useMutation(REMOVE_FROM_CART)
     const [clearCart] = useMutation(CLEAR_CART)
     const [checkout, { data }] = useLazyQuery(CHECKOUT)
-    
+
     const stripePromise = loadStripe(
         "pk_test_51Mlkl2B4isP22xRkEuqoS88b0ddSQDJQrMPSoD0DWxh8EVIFNj7Zhwqu8g19n4OYucrw1Ld6yrtwURsJNXqHcQAR009eCt8weO"
     );
 
     useEffect(() => {
         if (data) {
-          stripePromise.then((res) => {
-            res.redirect(303, data.session);
-          });
+            stripePromise.then((res) => {
+                res.redirectToCheckout({ sessiondId: data.checkout.session });
+            });
         }
     }, [data, stripePromise]);
 
@@ -65,11 +65,16 @@ const ShoppingCart = ({ cart, loading }) => {
 
     const handleCheckout = async (event) => {
         event.preventDefault()
-        await checkout({
-            variables: {
-                cartId: cart._id
-            }
-        })
+        try {
+            checkout({
+                variables: {
+                    cartId: cart._id
+                }
+            })
+        } catch (err) {
+            console.log("Error:", err)
+        }
+        
     }
 
     if (!Auth.loggedIn()) {
