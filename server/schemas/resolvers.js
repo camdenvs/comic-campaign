@@ -71,7 +71,7 @@ const resolvers = {
                 cancel_url: `${url}/`
             })
 
-            return session
+            return session.url
         }
     },
 
