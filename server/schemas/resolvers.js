@@ -65,7 +65,7 @@ const resolvers = {
 
             const session = await stripe.checkout.sessions.create({
                 payment_method_types: ['card'],
-                line_items,
+                line_items: line_items,
                 mode: 'payment',
                 success_url: `${url}/success`,
                 cancel_url: `${url}/`
