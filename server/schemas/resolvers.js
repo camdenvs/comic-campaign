@@ -70,8 +70,9 @@ const resolvers = {
                 success_url: `${url}/success`,
                 cancel_url: `${url}/`
             })
+            console.log(session)
 
-            return { session: session.url }
+            return { session: session.id }
         }
     },
 
@@ -87,7 +88,7 @@ const resolvers = {
             )
         },
         createProduct: async (parent, { name, price, description, image, category, sizes }) => {
-            const stripeProductId = await stripe.products.create({
+            const stripeProduct = await stripe.products.create({
                 name: name,
                 description: description,
                 default_price_data: {
@@ -95,7 +96,7 @@ const resolvers = {
                     currency: 'usd',
                 }
             })
-            return await Product.create({ name, price, description, image: 'all-caps-placeholder.jpg', category, sizes, stripeProductId: stripeProductId.id })
+            return await Product.create({ name, price, description, image: 'all-caps-placeholder.jpg', category, sizes, stripeProductId: stripeProduct.id })
         },
         removeProduct: async (parent, { productId }) => {
             return await Product.findOneAndDelete({ _id: productId })
