@@ -58,7 +58,7 @@ const Header = () => {
                                 </Menu>
                             </ListItem>
                             <ListItem mr={{ md: '5', lg: '10' }}>
-                                <Link as={RouteLink} to='/campaigns'>Campaign</Link>
+                                <Link as={RouteLink} to='/campaigns'>Campaigns</Link>
                             </ListItem>
                             <ListItem mr={{ md: '5', lg: '10' }}>
                                 <Link as={RouteLink} to='/news'>News</Link>
