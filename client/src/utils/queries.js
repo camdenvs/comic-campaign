@@ -5,6 +5,7 @@ export const QUERY_CAMPAIGNS = gql`
     campaigns {
       _id
       title
+      image
       goalAmount
       goalDate
       earned
@@ -12,6 +13,7 @@ export const QUERY_CAMPAIGNS = gql`
       description
       isActive
       createdAt
+      link
     }
   }
 `;

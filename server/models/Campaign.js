@@ -8,14 +8,8 @@ const campaignSchema = new Schema({
         type: String,
         required: true
     },
-    goalAmount: {
-        type: Number,
-        required: true
-    },
-    goalDate: {
-        type: String,
-        required: true
-    },
+    goalAmount: Number,
+    goalDate: String,
     earned: {
         type: Number,
         required: true,
@@ -56,7 +50,11 @@ const campaignSchema = new Schema({
         }
     }],
     comments: [commentSchema],
-    story: String
+    story: String,
+    link: {
+        type: String,
+        required: true
+    }
 })
 
 // * The following commented code blocks are for the former MySQL model

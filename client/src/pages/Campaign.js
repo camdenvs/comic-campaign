@@ -5,7 +5,7 @@ import CampaignCard from "../components/CampaignCard"
 
 import { QUERY_CAMPAIGNS, QUERY_ME } from "../utils/queries"
 import { CREATE_CAMPAIGN } from "../utils/mutations"
-import { useToast, Box, Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Textarea, FormHelperText } from "@chakra-ui/react"
+import { useToast, Box, Button, Center, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Textarea } from "@chakra-ui/react"
 
 const Campaign = () => {
     document.addEventListener('trix-before-initialize', () => { })
@@ -13,7 +13,7 @@ const Campaign = () => {
     const btnRef = React.useRef(null)
     const toast = useToast()
 
-    const [formState, setFormState] = useState({ title: '', goalAmount: '', goalDate: '', description: '', image: '' })
+    const [formState, setFormState] = useState({ title: '', description: '', link: '' })
     const { loading, data } = useQuery(QUERY_CAMPAIGNS)
     const campaigns = data?.campaigns || []
 
@@ -26,7 +26,9 @@ const Campaign = () => {
         try {
             await createCampaign({
                 variables: {
-                    ...formState
+                    title: formState.title,
+                    description: formState.description,
+                    link: formState.link
                 }
             })
             toast({
@@ -56,13 +58,6 @@ const Campaign = () => {
             [name]: value,
         });
     };
-
-    const handleNumberChange = (value) => {
-        setFormState({
-            ...formState,
-            goalAmount: value,
-        });
-    }
 
     return (
         <Box minH='72vh'>
@@ -118,14 +113,9 @@ const Campaign = () => {
                                                     <FormLabel>Description</FormLabel>
                                                     <Textarea name='description' value={formState.description} onChange={handleChange} />
                                                 </FormControl>
-                                                <FormControl isInvalid={(formState.goalAmount === '')} isRequired>
-                                                    <FormLabel>Goal Amount</FormLabel>
-                                                    <Input name='goalAmount' type='number' value={formState.goalAmount} onChange={(e) => handleNumberChange(Number(e.target.value))} />
-                                                    <FormHelperText>Please enter a whole number.</FormHelperText>
-                                                </FormControl>
-                                                <FormControl isInvalid={(formState.goalDate === '')} isRequired>
-                                                    <FormLabel>Goal Date</FormLabel>
-                                                    <Input name='goalDate' value={formState.goalDate} onChange={handleChange} />
+                                                <FormControl isInvalid={(formState.link === '')} isRequired>
+                                                    <FormLabel>Link to Campaign</FormLabel>
+                                                    <Input name='link' value={formState.link} onChange={handleChange} />
                                                 </FormControl>
                                             </form>
                                         </ModalBody>

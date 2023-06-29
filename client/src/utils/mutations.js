@@ -25,8 +25,8 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_CAMPAIGN = gql`
-  mutation createCampaign($title: String!, $goalAmount: Int!, $goalDate: String!, $description: String!, $image: String!) {
-    createCampaign(title: $title, goalAmount: $goalAmount, goalDate: $goalDate, description: $description, image: $image) {
+  mutation createCampaign($title: String!, $description: String!, $link: String!) {
+    createCampaign(title: $title, description: $description, link: $link) {
       _id
       title
       goalAmount
@@ -36,6 +36,7 @@ export const CREATE_CAMPAIGN = gql`
       description
       isActive
       image
+      link
     }
   }
 `
