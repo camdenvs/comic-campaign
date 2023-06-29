@@ -29,6 +29,7 @@ const typeDefs = gql`
         updates: [Update]
         comments: [Comment]
         story: String
+        link: String
     }
 
     type Update {
@@ -120,7 +121,7 @@ const typeDefs = gql`
     }
     
     type Mutation {
-        createCampaign(title: String!, goalAmount: Int!, goalDate: String!, description: String!, image: String!): Campaign
+        createCampaign(title: String!, description: String!, link: String!): Campaign
         updateCampaign(campaignId: ID!, title: String!, goalAmount: Int!, goalDate: String!, escription: String!, image: String!): Campaign
         createProduct(name: String! price: Int!, description: String!, image: String!, category: String!, sizes: String): Product
         removeProduct(productId: ID!): Product

@@ -6,7 +6,8 @@ import {
     Link,
     CardBody,
     Text,
-    Progress,
+    Box,
+    Image
 } from '@chakra-ui/react'
 
 
@@ -22,12 +23,16 @@ const CampaignCard = ({
             {campaigns &&
                 campaigns.map((campaign) => (
                     <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'} mt={5}>
-                        <Link as={RouteLink} to={{ pathname: `/campaigns/${campaign._id}` }} _hover={'none'}>
-                            <Heading px='5' pt='5'>{campaign.title}</Heading>
-                            <CardBody>
-                                <Text py={3} px={2} fontSize={24}>{campaign.earned} / {campaign.goalAmount}</Text>
-                                <Progress value={campaign.earned / campaign.goalAmount} />
-                            </CardBody>
+                        <Link as={RouteLink} to={campaign.link} _hover={'none'}>
+                            <Flex>
+                                <Image src={campaign.image} alt={`${campaign.title} image`} w={'15%'}/>
+                                <Box>
+                                    <Heading px='5' pt='5'>{campaign.title}</Heading>
+                                    <CardBody>
+                                        <Text py={3} px={2} fontSize={24}>{campaign.description}</Text>
+                                    </CardBody>
+                                </Box>
+                            </Flex>
                         </Link>
                     </Card>
                 ))
