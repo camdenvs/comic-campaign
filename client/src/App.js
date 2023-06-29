@@ -21,6 +21,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import OneNews from './pages/OneNews';
 import { Flex } from '@chakra-ui/react';
+import Success from './pages/Success';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -97,7 +98,10 @@ function App() {
               path='/news/:newsId'
               element={<OneNews />}
             />
-
+            <Route
+              path='/success'
+              element={<Success />}
+            />
             <Route path='*' element={<Navigate to='/'/>} />
           </Routes>
           <Footer />

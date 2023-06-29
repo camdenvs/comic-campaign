@@ -12,6 +12,7 @@ import {
     CardHeader,
     Card,
     CardBody,
+    useToast
 } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import { FaShoppingCart, FaTrash } from 'react-icons/fa'
@@ -25,7 +26,7 @@ import { loadStripe } from "@stripe/stripe-js"
 const ShoppingCart = ({ cart, loading }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = React.useRef()
-
+    const toast = useToast()
     const [removeItem] = useMutation(REMOVE_FROM_CART)
     const [clearCart] = useMutation(CLEAR_CART)
     const [checkout, { data }] = useLazyQuery(CHECKOUT)
@@ -36,6 +37,7 @@ const ShoppingCart = ({ cart, loading }) => {
 
     useEffect(() => {
         if (data) {
+            localStorage.setItem('sessionId', data.checkout.session)
             stripePromise.then((res) => {
                 res.redirectToCheckout({ sessionId: data.checkout.session });
             });
@@ -45,6 +47,7 @@ const ShoppingCart = ({ cart, loading }) => {
     const handleRemoveItem = async (event) => {
         const itemId = await event.target.value
         const userId = await Auth.getProfile().data._id
+        try {
         await removeItem({
             variables: {
                 itemId: itemId,
@@ -52,6 +55,16 @@ const ShoppingCart = ({ cart, loading }) => {
             }
         })
         window.location.reload()
+        }
+        catch {
+            toast({
+                title: `There was an error removing that item.`,
+                description: `Reload and try again`,
+                status: 'error',
+                duration: 3000,
+                isClosable: true
+            })
+        }
     }
 
     const handleClearCart = async () => {

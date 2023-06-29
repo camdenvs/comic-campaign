@@ -31,7 +31,7 @@ const Header = () => {
 
                 <Flex my='auto'>
                     <Show above='md'>
-                        <Link as={RouteLink} to='/' mt='-3' mr={{ md: '10px', lg: '50px', xl: '200' }}>
+                        <Link as={RouteLink} to='/' mt='-3' mr={{ md: '10px', lg: '50px', xl: '100px' }}>
                             <Image
                                 src='/assets/images/Logo_AllCAPScomics_Circle.webp'
                                 alt='all caps logo'
@@ -41,9 +41,9 @@ const Header = () => {
                     </Show>
                     <Show above='md'>
                         <UnorderedList styleType='none' display='flex' h='50' fontSize={32} flexDir={'row'} >
-                            <ListItem mr={{ md: '5', lg: '10' }}>
+                            {/* <ListItem mr={{ md: '5', lg: '10' }}>
                                 <Link as={RouteLink} to='/about'>About</Link>
-                            </ListItem>
+                            </ListItem> */}
                             <ListItem mr={{ md: '5', lg: '10' }}>
                                 <Menu>
                                     <MenuButton as={Link}>Store</MenuButton>
@@ -66,11 +66,11 @@ const Header = () => {
                             {Auth.loggedIn() ? (
                                 <>
                                     <ListItem>
-                                        <Link onClick={logout} textDecoration={'none'} mr={{ md: 'none', xl: '190px' }}>Logout</Link>
+                                        <Link onClick={logout} textDecoration={'none'}>Logout</Link>
                                     </ListItem>
                                 </>
                             ) : (
-                                <ListItem mr={{ md: 'none', xl: '190px' }}>
+                                <ListItem>
                                     <Link as={RouteLink} to='/login'>Login</Link>
                                 </ListItem>
                             )}
