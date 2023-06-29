@@ -9,8 +9,6 @@ import {
     Center
 } from "@chakra-ui/react";
 
-
-
 const ProductCard = ({ product }) => {
 
     return (
