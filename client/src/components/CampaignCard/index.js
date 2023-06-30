@@ -3,11 +3,10 @@ import {
     Flex,
     Card,
     Heading,
-    Link,
     CardBody,
     Text,
-    Box,
-    Image
+    Image,
+    Stack,
 } from '@chakra-ui/react'
 
 
@@ -22,19 +21,32 @@ const CampaignCard = ({
         <Flex flexDir='column' mb='5'>
             {campaigns &&
                 campaigns.map((campaign) => (
-                    <Card border={'1px'} key={campaign._id} m='auto' w='55%' boxShadow={'lg'} mt={5}>
-                        <Link as={RouteLink} to={campaign.link} _hover={'none'}>
-                            <Flex>
-                                <Image src={campaign.image} alt={`${campaign.title} image`} w={'15%'}/>
-                                <Box>
-                                    <Heading px='5' pt='5'>{campaign.title}</Heading>
-                                    <CardBody>
-                                        <Text py={3} px={2} fontSize={24}>{campaign.description}</Text>
-                                    </CardBody>
-                                </Box>
-                            </Flex>
-                        </Link>
-                    </Card>
+                    <>
+                        <Card
+                            direction={{ base: 'column', sm: 'row' }}
+                            overflow='hidden'
+                            variant='outline'
+                            border={'1px'} key={campaign._id} m='auto' w='75%' boxShadow={'lg'} mt={5}
+                            as={RouteLink} to={campaign.link} _hover={'none'}
+                        >
+                            <Image
+                                objectFit='cover'
+                                maxW={{ base: '100%', sm: '200px' }}
+                                src={`/assets/images/${campaign.image}`}
+                                alt='Caffe Latte'
+                            />
+
+                            <Stack minW={'60%'}>
+                                <CardBody>
+                                    <Heading size='lg'>{campaign.title}</Heading>
+
+                                    <Text py='2' fontSize={'20px'}>
+                                        {campaign.description}
+                                    </Text>
+                                </CardBody>
+                            </Stack>
+                        </Card>
+                    </>
                 ))
             }
         </Flex>
