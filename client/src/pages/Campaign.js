@@ -64,76 +64,63 @@ const Campaign = () => {
             {loading ? (
                 <div>Loading...</div>
             ) : (
-                <>
-                    <Box
-                        position={'fixed'}
-                        left='0'
-                        right={'0'}
-                        zIndex={1}
-                        bgImage={"url('/assets/images/bckgrnd-banner2.jpg')"}
-                        bgPosition="top"
-                        bgSize="cover"
-                        bgRepeat="no-repeat"
-                        minH='72vh'
-                        filter={'auto'}
-                        brightness={'60%'}
-                        saturate={'0.7'}
-                    />
-                    <Box
-                        position={'fixed'}
-                        left='0'
-                        right={'0'}
-                        zIndex={2}
-                    >
-                        {userIsAdmin ? (
-                            <>
-                                <Center><Button ref={btnRef} onClick={onOpen} border={'0'} w='55%' boxShadow={'lg'} mt='5' bgColor={'green.300'} color={'white'} textShadow={'1px 1px black'} _hover={{ bgColor: 'green.400' }}>Add New Campaign</Button></Center>
-                                <Modal
-                                    onClose={onClose}
-                                    finalFocusRef={btnRef}
-                                    isOpen={isOpen}
-                                    scrollBehavior={"inside"}
-                                    size={'lg'}
-                                >
-                                    <ModalOverlay />
-                                    <ModalContent >
-                                        <ModalHeader><Center>Add New Campaign</Center></ModalHeader>
-                                        <ModalCloseButton />
-                                        <ModalBody>
-                                            <form>
-                                                {/* <FormControl mb={2}>
+                <Box
+                    left='0'
+                    right={'0'}
+                    bgImage={"url('/assets/images/bckgrnd-banner2.jpg')"}
+                    bgPosition="top"
+                    bgSize="cover"
+                    bgRepeat="no-repeat"
+                    minH='72vh'
+                >
+                    {userIsAdmin ? (
+                        <>
+                            <Center><Button ref={btnRef} onClick={onOpen} border={'0'} w='55%' boxShadow={'lg'} mt='5' bgColor={'green.300'} color={'white'} textShadow={'1px 1px black'} _hover={{ bgColor: 'green.400' }}>Add New Campaign</Button></Center>
+                            <Modal
+                                onClose={onClose}
+                                finalFocusRef={btnRef}
+                                isOpen={isOpen}
+                                scrollBehavior={"inside"}
+                                size={'lg'}
+                            >
+                                <ModalOverlay />
+                                <ModalContent >
+                                    <ModalHeader><Center>Add New Campaign</Center></ModalHeader>
+                                    <ModalCloseButton />
+                                    <ModalBody>
+                                        <form>
+                                            {/* <FormControl mb={2}>
                                                     <FormLabel>Campaign Image</FormLabel>
                                                     <input type='file' value={formState.image} name='image' onChange={handleChange} />
                                                 </FormControl> */}
-                                                <FormControl isInvalid={(formState.title === '')} isRequired>
-                                                    <FormLabel>Campaign Title</FormLabel>
-                                                    <Input name='title' value={formState.title} onChange={handleChange} />
-                                                </FormControl>
-                                                <FormControl isInvalid={(formState.description === '')} isRequired>
-                                                    <FormLabel>Description</FormLabel>
-                                                    <Textarea name='description' value={formState.description} onChange={handleChange} />
-                                                </FormControl>
-                                                <FormControl isInvalid={(formState.link === '')} isRequired>
-                                                    <FormLabel>Link to Campaign</FormLabel>
-                                                    <Input name='link' value={formState.link} onChange={handleChange} />
-                                                </FormControl>
-                                            </form>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <Button onClick={handleFormSubmit} mr='3' bgColor={'green.300'} color={'white'} _hover={{ bgColor: 'green.400' }}>Submit</Button>
-                                            <Button onClick={onClose}>Close</Button>
-                                        </ModalFooter>
-                                    </ModalContent>
-                                </Modal>
-                            </>
-                        ) :
-                            <></>
-                        }
-                        <CampaignCard
-                            campaigns={campaigns}
-                        />
-                    </Box>
-                </>
+                                            <FormControl isInvalid={(formState.title === '')} isRequired>
+                                                <FormLabel>Campaign Title</FormLabel>
+                                                <Input name='title' value={formState.title} onChange={handleChange} />
+                                            </FormControl>
+                                            <FormControl isInvalid={(formState.description === '')} isRequired>
+                                                <FormLabel>Description</FormLabel>
+                                                <Textarea name='description' value={formState.description} onChange={handleChange} />
+                                            </FormControl>
+                                            <FormControl isInvalid={(formState.link === '')} isRequired>
+                                                <FormLabel>Link to Campaign</FormLabel>
+                                                <Input name='link' value={formState.link} onChange={handleChange} />
+                                            </FormControl>
+                                        </form>
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button onClick={handleFormSubmit} mr='3' bgColor={'green.300'} color={'white'} _hover={{ bgColor: 'green.400' }}>Submit</Button>
+                                        <Button onClick={onClose}>Close</Button>
+                                    </ModalFooter>
+                                </ModalContent>
+                            </Modal>
+                        </>
+                    ) :
+                        <></>
+                    }
+                    <CampaignCard
+                        campaigns={campaigns}
+                    />
+                </Box>
             )}
         </Box>
     )
