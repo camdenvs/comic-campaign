@@ -8,6 +8,7 @@ const divStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: '90%',
+    backgroundColor: '#E7D263',
     backgroundRepeat: 'no-repeat',
     height: '85vh',
     backgroundPosition: 'center'
@@ -18,8 +19,8 @@ const slideImages = [
         link: '/store/action-figures'
     },
     {
-        url: '/assets/images/slideshow/RektPlanet-SS.jpg',
-        link: 'https://www.indiegogo.com/projects/ethan-van-sciver-s-cyberfrog-2-rekt-planet#/'
+        url: '/assets/images/slideshow/CyberFrog3-SS.png',
+        link: 'https://www.indiegogo.com/projects/ethan-van-sciver-s-cyberfrog-3-red-extermination#/'
     },
     {
         url: '/assets/images/slideshow/RTB-SS.jpg',
