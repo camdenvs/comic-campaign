@@ -73,7 +73,7 @@ const Product = () => {
                     <Box mx={{ base: '50px', md: '150' }} mt='50' mb='5'>
                         <Flex flexDir={{ base: 'column', md: 'row' }}>
                             <Image
-                                src={`/assets/images/${product.image}`}
+                                src={`/assets/images/products/${product.image}`}
                                 alt={'Product Image'}
                                 p='5'
                                 border='1px'

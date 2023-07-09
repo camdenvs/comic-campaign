@@ -12,7 +12,7 @@ const Footer = () => {
                     <Link href='https://twitter.com/EthanVanSciver' fontSize={'48px'} color={'white'} my='auto' mr={{ sm: '10px', md: '50px' }}><FaTwitter /></Link>
                     <Link href='https://www.youtube.com/@ComicArtistProSecrets' fontSize={'48px'} color={'white'} my='auto' ml={{ sm: '10px', md: '50px' }}><FaYoutube /></Link>
                 </Flex>
-                <Text color='white' my='auto' px={{ sm: '5' }} fontSize={{base: '12px', sm: '16px'}} mx={{ base: 'auto', sm: 'none' }}><Link href='https://farmfreshyeets.github.io/react-portfolio/' >Who Built This Website?</Link></Text>
+                <Text color='white' my='auto' px={{ sm: '5' }} fontSize={{base: '12px', sm: '16px'}} mx={{ base: 'auto', sm: 'none' }}><Link href='https://camdenvs.github.io/portfolio_v3/' >Who Built This Website?</Link></Text>
             </Flex>
         </footer>
     )
